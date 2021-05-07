@@ -2,6 +2,7 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -10,6 +11,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
+import com.kush.lib.expressions.types.factory.MutableTypedValue;
 
 /**
  * true AND true = true
@@ -29,6 +31,8 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
     private final ExpressionEvaluator<T> leftExprEvaluator;
     private final ExpressionEvaluator<T> rightExprEvaluator;
 
+    private final MutableTypedValue evaluatedResult;
+
     public AndExpressionEvaluator(AndExpression expression, ExpressionEvaluatorFactory<T> evaluatorFactory)
             throws ExpressionException {
         super(expression);
@@ -36,6 +40,7 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
         validateType(leftExprEvaluator, BOOLEAN, "AND");
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
         validateType(rightExprEvaluator, BOOLEAN, "AND");
+        evaluatedResult = mutableBooleanValue();
     }
 
     @Override
@@ -44,7 +49,7 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
         boolean leftResult = leftValue.getBoolean();
         if (!leftValue.isNull() && leftResult == false) {
             // left != null && left == false
-            return booleanValue(leftResult);
+            return booleanValue(leftResult, evaluatedResult);
         }
 
         // left == null || left == true
@@ -52,7 +57,7 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
         boolean rightResult = rightValue.getBoolean();
         if (leftValue.isNull() && rightResult != false) {
             // left == null
-            return nullValue(BOOLEAN);
+            return nullValue(evaluatedResult);
         }
 
         // left == true

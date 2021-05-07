@@ -2,6 +2,7 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -10,6 +11,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.OrExpression;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
+import com.kush.lib.expressions.types.factory.MutableTypedValue;
 
 /**
  * true OR true = true
@@ -29,6 +31,8 @@ class OrExpressionEvaluator<T> extends BaseExpressionEvaluator<OrExpression, T> 
     private final ExpressionEvaluator<T> leftExprEvaluator;
     private final ExpressionEvaluator<T> rightExprEvaluator;
 
+    private final MutableTypedValue evaluatedResult;
+
     public OrExpressionEvaluator(OrExpression expression, ExpressionEvaluatorFactory<T> evaluatorFactory)
             throws ExpressionException {
         super(expression);
@@ -36,6 +40,7 @@ class OrExpressionEvaluator<T> extends BaseExpressionEvaluator<OrExpression, T> 
         validateType(leftExprEvaluator, BOOLEAN, "OR");
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
         validateType(rightExprEvaluator, BOOLEAN, "OR");
+        evaluatedResult = mutableBooleanValue();
     }
 
     @Override
@@ -44,7 +49,7 @@ class OrExpressionEvaluator<T> extends BaseExpressionEvaluator<OrExpression, T> 
         boolean leftResult = leftValue.getBoolean();
         if (!leftValue.isNull() && leftResult == true) {
             // left != null && left == true
-            return booleanValue(true);
+            return booleanValue(true, evaluatedResult);
         }
 
         // left == null || left == false
@@ -52,7 +57,7 @@ class OrExpressionEvaluator<T> extends BaseExpressionEvaluator<OrExpression, T> 
         boolean rightResult = rightValue.getBoolean();
         if (leftValue.isNull() && rightResult != true) {
             // left == null
-            return nullValue(BOOLEAN);
+            return nullValue(evaluatedResult);
         }
 
         // left == true

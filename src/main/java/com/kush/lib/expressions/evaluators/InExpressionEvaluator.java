@@ -2,6 +2,7 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,11 +14,14 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.InExpression;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
+import com.kush.lib.expressions.types.factory.MutableTypedValue;
 
 class InExpressionEvaluator<T> implements ExpressionEvaluator<T> {
 
     private final ExpressionEvaluator<T> targetEvaluator;
     private final Collection<ExpressionEvaluator<T>> inExprEvaluators;
+
+    private final MutableTypedValue evaluatedResult;
 
     public InExpressionEvaluator(InExpression inExpression, ExpressionEvaluatorFactory<T> exprEvalFactory)
             throws ExpressionException {
@@ -28,6 +32,7 @@ class InExpressionEvaluator<T> implements ExpressionEvaluator<T> {
             ExpressionEvaluator<T> evaluator = exprEvalFactory.create(inExpr);
             inExprEvaluators.add(evaluator);
         }
+        evaluatedResult = mutableBooleanValue();
     }
 
     @Override
@@ -36,10 +41,10 @@ class InExpressionEvaluator<T> implements ExpressionEvaluator<T> {
         for (ExpressionEvaluator<T> inExprEval : inExprEvaluators) {
             TypedValue inExprValue = inExprEval.evaluate(object);
             if (!targetValue.equals(inExprValue)) {
-                return booleanValue(false);
+                return booleanValue(false, evaluatedResult);
             }
         }
-        return booleanValue(true);
+        return booleanValue(true, evaluatedResult);
     }
 
     @Override

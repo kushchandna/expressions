@@ -2,6 +2,7 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -10,6 +11,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.commons.ComparisionExpression;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
+import com.kush.lib.expressions.types.factory.MutableTypedValue;
 
 /**
  * null compared with null is null
@@ -20,12 +22,15 @@ abstract class BaseComparisionExpressionEvaluator<E extends ComparisionExpressio
     private final ExpressionEvaluator<T> leftExprEvaluator;
     private final ExpressionEvaluator<T> rightExprEvaluator;
 
+    private final MutableTypedValue evaluatedResult;
+
     public BaseComparisionExpressionEvaluator(E expression, ExpressionEvaluatorFactory<T> evaluatorFactory)
             throws ExpressionException {
         super(expression);
         leftExprEvaluator = evaluatorFactory.create(expression.getLeft());
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
         validateSameTypeOnBothSides(leftExprEvaluator, rightExprEvaluator, "EQUALS");
+        evaluatedResult = mutableBooleanValue();
     }
 
     @Override
@@ -33,9 +38,9 @@ abstract class BaseComparisionExpressionEvaluator<E extends ComparisionExpressio
         TypedValue leftValue = leftExprEvaluator.evaluate(object);
         TypedValue rightValue = rightExprEvaluator.evaluate(object);
         if (leftValue.isNull() || rightValue.isNull()) {
-            return nullValue(BOOLEAN);
+            return nullValue(evaluatedResult);
         }
-        return booleanValue(evaluateNonNullComparision(leftValue, rightValue));
+        return booleanValue(evaluateNonNullComparision(leftValue, rightValue), evaluatedResult);
     }
 
     @Override
