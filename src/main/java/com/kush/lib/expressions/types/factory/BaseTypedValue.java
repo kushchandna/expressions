@@ -85,7 +85,7 @@ abstract class BaseTypedValue implements TypedValue {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof BaseTypedValue)) {
             return false;
         }
         BaseTypedValue other = (BaseTypedValue) obj;
