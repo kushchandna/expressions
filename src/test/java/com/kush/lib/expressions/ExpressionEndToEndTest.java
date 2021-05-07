@@ -19,6 +19,7 @@ import com.kush.lib.expressions.aspect.AspectFieldEvaluationFactory;
 import com.kush.lib.expressions.aspect.Aspects;
 import com.kush.lib.expressions.evaluators.DefaultExpressionEvaluatorFactory;
 import com.kush.lib.expressions.factory.DefaultExpressionFactory;
+import com.kush.lib.expressions.parsers.sql.SqlExpressionParser;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 
@@ -75,32 +76,7 @@ public class ExpressionEndToEndTest {
     }
 
     private static ExpressionParser<String> createParser() {
-        return new FixedSqlParser();
-    }
-
-    private static class FixedSqlParser implements ExpressionParser<String> {
-
-        private final ExpressionFactory expressionFactory;
-
-        public FixedSqlParser() {
-            expressionFactory = new DefaultExpressionFactory();
-        }
-
-        @Override
-        public Expression parse(String input) throws ExpressionParsingFailedException {
-            if (!"field1 = 1 and field2 = 2".equals(input)) {
-                throw new ExpressionParsingFailedException();
-            }
-
-            Expression leftExpr1 = expressionFactory.createFieldExpression("field1");
-            Expression rightExpr1 = expressionFactory.createConstantIntExpression(1);
-            Expression leftExpr2 = expressionFactory.createFieldExpression("field2");
-            Expression rightExpr2 = expressionFactory.createConstantIntExpression(2);
-
-            Expression leftExpr = expressionFactory.createEqualsExpression(leftExpr1, rightExpr1);
-            Expression rightExpr = expressionFactory.createEqualsExpression(leftExpr2, rightExpr2);
-            return expressionFactory.createAndExpression(leftExpr, rightExpr);
-        }
+        return new SqlExpressionParser(new DefaultExpressionFactory());
     }
 
     private static SampleObject obj(int field1, int field2) {
