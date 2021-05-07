@@ -5,7 +5,7 @@ public abstract class BaseMutableTypedValue extends BaseTypedValue implements Mu
     private boolean isNull;
 
     public BaseMutableTypedValue() {
-        setNull(true);
+        setNull(false);
     }
 
     @Override
