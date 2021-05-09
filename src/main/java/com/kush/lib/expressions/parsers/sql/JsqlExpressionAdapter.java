@@ -20,7 +20,7 @@ import net.sf.jsqlparser.expression.operators.relational.MinorThan;
 import net.sf.jsqlparser.expression.operators.relational.MinorThanEquals;
 import net.sf.jsqlparser.schema.Column;
 
-public class JsqlExpressionAdapter extends ExpressionVisitorAdapter {
+class JsqlExpressionAdapter extends ExpressionVisitorAdapter {
 
     private final ExpressionFactory expressionFactory;
 
