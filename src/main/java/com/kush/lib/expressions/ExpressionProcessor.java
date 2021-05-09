@@ -29,29 +29,53 @@ public abstract class ExpressionProcessor<T> {
         return invokeSpecificProcessMethod(expression);
     }
 
-    protected abstract T handle(FieldExpression expression) throws ExpressionException;
+    protected T handle(FieldExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(AndExpression expression) throws ExpressionException;
+    protected T handle(AndExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(OrExpression expression) throws ExpressionException;
+    protected T handle(OrExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(NotExpression expression) throws ExpressionException;
+    protected T handle(NotExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(EqualsExpression expression) throws ExpressionException;
+    protected T handle(EqualsExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(InExpression expression) throws ExpressionException;
+    protected T handle(InExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(GreaterThanExpression expression) throws ExpressionException;
+    protected T handle(GreaterThanExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(GreaterThanEqualsExpression expression) throws ExpressionException;
+    protected T handle(GreaterThanEqualsExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(LessThanExpression expression) throws ExpressionException;
+    protected T handle(LessThanExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(LessThanEqualsExpression expression) throws ExpressionException;
+    protected T handle(LessThanEqualsExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(ConstantStringExpression expression) throws ExpressionException;
+    protected T handle(ConstantStringExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
-    protected abstract T handle(ConstantIntExpression expression) throws ExpressionException;
+    protected T handle(ConstantIntExpression expression) throws ExpressionException {
+        throw new UnsupportedOperationException();
+    }
 
     private void initializeHandlingMethodsIfRequired() {
         if (handlingMethods == null) {
