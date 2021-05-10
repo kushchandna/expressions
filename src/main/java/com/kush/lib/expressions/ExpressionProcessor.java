@@ -30,50 +30,54 @@ public abstract class ExpressionProcessor<T> {
     }
 
     protected T handle(FieldExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(AndExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(OrExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(NotExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(EqualsExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(InExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(GreaterThanExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(GreaterThanEqualsExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(LessThanExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(LessThanEqualsExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(ConstantStringExpression expression) throws ExpressionException {
-        throw new UnsupportedOperationException();
+        return getDefaultValue();
     }
 
     protected T handle(ConstantIntExpression expression) throws ExpressionException {
+        return getDefaultValue();
+    }
+
+    protected T getDefaultValue() {
         throw new UnsupportedOperationException();
     }
 
