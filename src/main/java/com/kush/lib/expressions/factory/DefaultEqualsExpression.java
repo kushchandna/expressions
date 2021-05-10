@@ -8,4 +8,9 @@ class DefaultEqualsExpression extends BaseBinomialExpression implements EqualsEx
     public DefaultEqualsExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return "=";
+    }
 }

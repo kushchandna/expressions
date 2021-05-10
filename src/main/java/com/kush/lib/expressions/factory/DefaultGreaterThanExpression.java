@@ -8,4 +8,9 @@ class DefaultGreaterThanExpression extends BaseBinomialExpression implements Gre
     public DefaultGreaterThanExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return ">";
+    }
 }

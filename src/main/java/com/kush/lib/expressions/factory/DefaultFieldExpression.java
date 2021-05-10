@@ -14,4 +14,9 @@ class DefaultFieldExpression extends BaseTerminalExpression implements FieldExpr
     public String getFieldName() {
         return fieldName;
     }
+
+    @Override
+    public String toString() {
+        return fieldName;
+    }
 }

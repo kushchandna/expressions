@@ -31,4 +31,15 @@ abstract class BaseBinomialExpression implements BinomialExpression {
     public Collection<Expression> getChildren() {
         return asList(left, right);
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+            .append(String.valueOf(getLeft()))
+            .append(" ").append(getOperator()).append(" ")
+            .append(String.valueOf(getRight()))
+            .toString();
+    }
+
+    protected abstract String getOperator();
 }

@@ -1,5 +1,7 @@
 package com.kush.lib.expressions.factory;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,5 +35,18 @@ class DefaultInExpression implements InExpression {
     @Override
     public Collection<Expression> getInExpressions() {
         return inExprs;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+            .append(String.valueOf(getTarget()))
+            .append(" ").append("IN").append(" ")
+            .append("(")
+            .append(inExprs.stream()
+                .map(String::valueOf)
+                .collect(joining(", ")))
+            .append(")")
+            .toString();
     }
 }

@@ -14,4 +14,9 @@ class DefaultConstantIntExpression extends BaseTerminalExpression implements Con
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(getValue());
+    }
 }

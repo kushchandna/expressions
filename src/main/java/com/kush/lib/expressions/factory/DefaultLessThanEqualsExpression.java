@@ -8,4 +8,9 @@ class DefaultLessThanEqualsExpression extends BaseBinomialExpression implements 
     public DefaultLessThanEqualsExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return "<=";
+    }
 }

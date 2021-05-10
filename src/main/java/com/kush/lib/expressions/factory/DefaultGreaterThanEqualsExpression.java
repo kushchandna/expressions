@@ -8,4 +8,9 @@ class DefaultGreaterThanEqualsExpression extends BaseBinomialExpression implemen
     public DefaultGreaterThanEqualsExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return ">=";
+    }
 }

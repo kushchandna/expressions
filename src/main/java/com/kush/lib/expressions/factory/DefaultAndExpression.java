@@ -8,4 +8,9 @@ class DefaultAndExpression extends BaseBinomialExpression implements AndExpressi
     public DefaultAndExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return "AND";
+    }
 }

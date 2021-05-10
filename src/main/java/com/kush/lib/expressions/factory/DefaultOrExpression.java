@@ -8,4 +8,9 @@ class DefaultOrExpression extends BaseBinomialExpression implements OrExpression
     public DefaultOrExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return "OR";
+    }
 }

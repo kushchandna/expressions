@@ -8,4 +8,9 @@ class DefaultLessThanExpression extends BaseBinomialExpression implements LessTh
     public DefaultLessThanExpression(Expression left, Expression right) {
         super(left, right);
     }
+
+    @Override
+    protected String getOperator() {
+        return "<";
+    }
 }

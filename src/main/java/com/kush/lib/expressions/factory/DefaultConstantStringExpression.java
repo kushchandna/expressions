@@ -14,4 +14,13 @@ class DefaultConstantStringExpression extends BaseTerminalExpression implements 
     public String getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+            .append("\"")
+            .append(getValue().replace("\"", "\\\""))
+            .append("\"")
+            .toString();
+    }
 }
