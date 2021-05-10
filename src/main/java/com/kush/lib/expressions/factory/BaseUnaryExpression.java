@@ -7,7 +7,7 @@ import java.util.Collection;
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.commons.UnaryExpression;
 
-abstract class BaseUnaryExpression implements UnaryExpression {
+abstract class BaseUnaryExpression extends BaseExpression implements UnaryExpression {
 
     private final Expression child;
 

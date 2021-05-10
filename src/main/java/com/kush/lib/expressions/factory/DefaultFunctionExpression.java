@@ -7,7 +7,7 @@ import java.util.Collection;
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.clauses.FunctionExpression;
 
-class DefaultFunctionExpression implements FunctionExpression {
+class DefaultFunctionExpression extends BaseExpression implements FunctionExpression {
 
     private final String functionName;
     private final Collection<Expression> arguments;

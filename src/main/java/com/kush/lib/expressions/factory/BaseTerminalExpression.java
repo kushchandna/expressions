@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import com.kush.lib.expressions.Expression;
 
-abstract class BaseTerminalExpression implements Expression {
+abstract class BaseTerminalExpression extends BaseExpression implements Expression {
 
     @Override
     public Collection<Expression> getChildren() {

@@ -9,7 +9,7 @@ import java.util.List;
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.clauses.InExpression;
 
-class DefaultInExpression implements InExpression {
+class DefaultInExpression extends BaseExpression implements InExpression {
 
     private final Expression targetExpr;
     private final Collection<Expression> inExprs;
