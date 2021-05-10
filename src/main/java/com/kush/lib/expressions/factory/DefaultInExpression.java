@@ -43,7 +43,7 @@ class DefaultInExpression implements InExpression {
             .append(String.valueOf(getTarget()))
             .append(" ").append("IN").append(" ")
             .append("(")
-            .append(inExprs.stream()
+            .append(getInExpressions().stream()
                 .map(String::valueOf)
                 .collect(joining(", ")))
             .append(")")
