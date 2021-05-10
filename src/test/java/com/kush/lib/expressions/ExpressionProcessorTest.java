@@ -1,6 +1,5 @@
 package com.kush.lib.expressions;
 
-import static java.lang.reflect.Modifier.isAbstract;
 import static java.lang.reflect.Modifier.isProtected;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
@@ -59,6 +58,6 @@ public class ExpressionProcessorTest {
             return false;
         }
         int modifiers = method.getModifiers();
-        return isAbstract(modifiers) && isProtected(modifiers);
+        return isProtected(modifiers);
     }
 }
