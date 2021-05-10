@@ -26,7 +26,7 @@ public class SqlExpressionParser implements ExpressionParser<String> {
         try {
             return CCJSqlParserUtil.parseCondExpression(input, false);
         } catch (JSQLParserException e) {
-            throw new ExpressionParsingFailedException(e.getMessage(), e);
+            throw new ExpressionParsingFailedException("Failed to parse SQL", e);
         }
     }
 }
