@@ -12,6 +12,7 @@ import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
+import com.kush.lib.expressions.clauses.FunctionExpression;
 import com.kush.lib.expressions.clauses.GreaterThanEqualsExpression;
 import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
@@ -74,6 +75,10 @@ public abstract class ExpressionProcessor<T> {
     }
 
     protected T handle(ConstantIntExpression expression) throws ExpressionException {
+        return getDefaultValue();
+    }
+
+    protected T handle(FunctionExpression expression) throws ExpressionException {
         return getDefaultValue();
     }
 

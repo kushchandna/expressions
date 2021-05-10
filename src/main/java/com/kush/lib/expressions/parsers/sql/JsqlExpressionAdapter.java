@@ -8,6 +8,7 @@ import com.kush.lib.expressions.ExpressionFactory;
 
 import net.sf.jsqlparser.expression.BinaryExpression;
 import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
+import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.NotExpression;
 import net.sf.jsqlparser.expression.StringValue;
@@ -101,6 +102,11 @@ class JsqlExpressionAdapter extends ExpressionVisitorAdapter {
     @Override
     public void visit(Column column) {
         add(expressionFactory.createFieldExpression(column.getFullyQualifiedName()));
+    }
+
+    @Override
+    public void visit(Function function) {
+        add(expressionFactory.createFunctionExpression(function.getName(), adapt(function.getParameters())));
     }
 
     private void processBinaryExpression(net.sf.jsqlparser.expression.Expression expr,
