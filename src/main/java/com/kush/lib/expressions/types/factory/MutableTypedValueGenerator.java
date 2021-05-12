@@ -1,61 +1,51 @@
 package com.kush.lib.expressions.types.factory;
 
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableByteValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableCharValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableDoubleValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableFloatValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableIntValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableLongValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableNullableValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableStringValue;
-
 import com.kush.lib.expressions.types.processors.TypeProcessor;
 
 class MutableTypedValueGenerator extends TypeProcessor<MutableTypedValue> {
 
     @Override
     protected MutableTypedValue handleBoolean() {
-        return mutableBooleanValue();
+        return new MutableBooleanValue();
     }
 
     @Override
     protected MutableTypedValue handleByte() {
-        return mutableByteValue();
+        return new MutableByteValue();
     }
 
     @Override
     protected MutableTypedValue handleChar() {
-        return mutableCharValue();
+        return new MutableCharValue();
     }
 
     @Override
     protected MutableTypedValue handleInt() {
-        return mutableIntValue();
+        return new MutableIntValue();
     }
 
     @Override
     protected MutableTypedValue handleLong() {
-        return mutableLongValue();
+        return new MutableLongValue();
     }
 
     @Override
     protected MutableTypedValue handleFloat() {
-        return mutableFloatValue();
+        return new MutableFloatValue();
     }
 
     @Override
     protected MutableTypedValue handleDouble() {
-        return mutableDoubleValue();
+        return new MutableDoubleValue();
     }
 
     @Override
     protected MutableTypedValue handleString() {
-        return mutableStringValue();
+        return new MutableStringValue();
     }
 
     @Override
     protected MutableTypedValue handleObject() {
-        return mutableNullableValue();
+        return new MutableObjectValue();
     }
 }

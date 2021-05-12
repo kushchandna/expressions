@@ -2,7 +2,7 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -40,7 +40,7 @@ class OrExpressionEvaluator<T> extends BaseExpressionEvaluator<OrExpression, T> 
         validateType(leftExprEvaluator, BOOLEAN, "OR");
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
         validateType(rightExprEvaluator, BOOLEAN, "OR");
-        evaluatedResult = mutableBooleanValue();
+        evaluatedResult = mutableValue(BOOLEAN);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableBooleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -30,7 +30,7 @@ abstract class BaseComparisionExpressionEvaluator<E extends ComparisionExpressio
         leftExprEvaluator = evaluatorFactory.create(expression.getLeft());
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
         validateSameTypeOnBothSides(leftExprEvaluator, rightExprEvaluator, "EQUALS");
-        evaluatedResult = mutableBooleanValue();
+        evaluatedResult = mutableValue(BOOLEAN);
     }
 
     @Override
