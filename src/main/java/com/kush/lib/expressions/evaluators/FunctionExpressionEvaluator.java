@@ -14,7 +14,7 @@ import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 
 // TODO avoid creation of new TypedValue instance on every evaluate call
-public class FunctionExpressionEvaluator<T> extends BaseExpressionEvaluator<FunctionExpression, T> {
+class FunctionExpressionEvaluator<T> extends BaseExpressionEvaluator<FunctionExpression, T> {
 
     private final Type returnType;
     private final FunctionExecutor functionExecutor;
