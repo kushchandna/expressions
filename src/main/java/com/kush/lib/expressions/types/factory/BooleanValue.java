@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.types.factory;
 
 import com.kush.lib.expressions.types.Type;
+import com.kush.lib.expressions.types.TypedValue;
 
 final class BooleanValue extends BaseTypedValue {
 
@@ -33,5 +34,10 @@ final class BooleanValue extends BaseTypedValue {
     @Override
     protected int nonNullValueHashCode() {
         return Boolean.hashCode(value);
+    }
+
+    @Override
+    public TypedValue clone() {
+        return new BooleanValue(value);
     }
 }

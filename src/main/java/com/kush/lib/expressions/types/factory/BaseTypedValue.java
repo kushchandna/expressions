@@ -104,4 +104,7 @@ abstract class BaseTypedValue implements TypedValue {
     protected abstract boolean nonNullValueEquals(BaseTypedValue other);
 
     protected abstract int nonNullValueHashCode();
+
+    @Override
+    public abstract TypedValue clone();
 }

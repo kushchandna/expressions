@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.types.factory;
 
 import com.kush.lib.expressions.types.Type;
+import com.kush.lib.expressions.types.TypedValue;
 
 class NullValue extends BaseTypedValue {
 
@@ -33,5 +34,10 @@ class NullValue extends BaseTypedValue {
     @Override
     protected int nonNullValueHashCode() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TypedValue clone() {
+        return new NullValue(type);
     }
 }

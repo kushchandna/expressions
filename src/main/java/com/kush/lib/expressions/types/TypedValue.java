@@ -1,6 +1,6 @@
 package com.kush.lib.expressions.types;
 
-public interface TypedValue extends Comparable<TypedValue> {
+public interface TypedValue extends Comparable<TypedValue>, Cloneable {
 
     Type getType();
 
@@ -24,4 +24,6 @@ public interface TypedValue extends Comparable<TypedValue> {
 
     @ImpactedByAutoBoxing
     Object getObject();
+
+    TypedValue clone();
 }

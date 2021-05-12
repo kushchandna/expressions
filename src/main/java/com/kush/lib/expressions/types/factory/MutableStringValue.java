@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.types.factory;
 
 import com.kush.lib.expressions.types.Type;
+import com.kush.lib.expressions.types.TypedValue;
 
 class MutableStringValue extends BaseMutableTypedValue {
 
@@ -34,5 +35,12 @@ class MutableStringValue extends BaseMutableTypedValue {
     @Override
     protected int nonNullValueHashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public TypedValue clone() {
+        MutableTypedValue mutableValue = new MutableStringValue();
+        mutableValue.set(value);
+        return mutableValue;
     }
 }

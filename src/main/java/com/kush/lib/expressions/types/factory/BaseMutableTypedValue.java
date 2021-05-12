@@ -1,5 +1,7 @@
 package com.kush.lib.expressions.types.factory;
 
+import com.kush.lib.expressions.types.TypedValue;
+
 public abstract class BaseMutableTypedValue extends BaseTypedValue implements MutableTypedValue {
 
     private boolean isNull;
@@ -62,4 +64,7 @@ public abstract class BaseMutableTypedValue extends BaseTypedValue implements Mu
     public void set(Object value) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public abstract TypedValue clone();
 }

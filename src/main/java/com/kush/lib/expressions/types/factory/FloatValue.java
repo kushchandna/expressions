@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.types.factory;
 
 import com.kush.lib.expressions.types.Type;
+import com.kush.lib.expressions.types.TypedValue;
 
 final class FloatValue extends BaseTypedValue {
 
@@ -33,5 +34,10 @@ final class FloatValue extends BaseTypedValue {
     @Override
     protected int nonNullValueHashCode() {
         return Float.hashCode(value);
+    }
+
+    @Override
+    public TypedValue clone() {
+        return new FloatValue(value);
     }
 }
