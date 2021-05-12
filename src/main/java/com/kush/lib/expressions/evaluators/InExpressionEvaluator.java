@@ -40,11 +40,11 @@ class InExpressionEvaluator<T> implements ExpressionEvaluator<T> {
         TypedValue targetValue = targetEvaluator.evaluate(object);
         for (ExpressionEvaluator<T> inExprEval : inExprEvaluators) {
             TypedValue inExprValue = inExprEval.evaluate(object);
-            if (!targetValue.equals(inExprValue)) {
-                return booleanValue(false, evaluatedResult);
+            if (targetValue.equals(inExprValue)) {
+                return booleanValue(true, evaluatedResult);
             }
         }
-        return booleanValue(true, evaluatedResult);
+        return booleanValue(false, evaluatedResult);
     }
 
     @Override
