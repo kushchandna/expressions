@@ -13,6 +13,7 @@ import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
+import com.kush.lib.expressions.clauses.FunctionExpression;
 import com.kush.lib.expressions.clauses.GreaterThanEqualsExpression;
 import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
@@ -56,13 +57,8 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
 
     @Override
     protected Expression handle(InExpression expression) throws ExpressionException {
-        Expression targetCopy = process(expression.getTarget());
-        Collection<Expression> inExpressions = expression.getInExpressions();
-        List<Expression> inExpressionsCopy = new ArrayList<>(inExpressions.size());
-        for (Expression inExpr : inExpressions) {
-            inExpressionsCopy.add(process(inExpr));
-        }
-        return expressionFactory.createInExpression(targetCopy, inExpressionsCopy);
+        return expressionFactory.createInExpression(process(expression.getTarget()),
+                processExpressions(expression.getInExpressions()));
     }
 
     @Override
@@ -86,6 +82,12 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     }
 
     @Override
+    protected Expression handle(FunctionExpression expression) throws ExpressionException {
+        return expressionFactory.createFunctionExpression(expression.getFunctionName(),
+                processExpressions(expression.getArguments()));
+    }
+
+    @Override
     protected Expression handle(ConstantStringExpression expression) {
         return expressionFactory.createConstantStringExpression(expression.getValue());
     }
@@ -93,5 +95,13 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     @Override
     protected Expression handle(ConstantIntExpression expression) {
         return expressionFactory.createConstantIntExpression(expression.getValue());
+    }
+
+    private List<Expression> processExpressions(Collection<Expression> inExpressions) throws ExpressionException {
+        List<Expression> processedExprList = new ArrayList<>(inExpressions.size());
+        for (Expression expr : inExpressions) {
+            processedExprList.add(process(expr));
+        }
+        return processedExprList;
     }
 }

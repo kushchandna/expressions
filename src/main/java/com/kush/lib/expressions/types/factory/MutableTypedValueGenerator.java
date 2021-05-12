@@ -7,12 +7,11 @@ import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableDo
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableFloatValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableIntValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableLongValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableNullableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableStringValue;
 
-import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.processors.TypeProcessor;
 
-@ImpactedByAutoBoxing
 class MutableTypedValueGenerator extends TypeProcessor<MutableTypedValue> {
 
     @Override
@@ -57,6 +56,6 @@ class MutableTypedValueGenerator extends TypeProcessor<MutableTypedValue> {
 
     @Override
     protected MutableTypedValue handleObject() {
-        throw new UnsupportedOperationException();
+        return mutableNullableValue();
     }
 }

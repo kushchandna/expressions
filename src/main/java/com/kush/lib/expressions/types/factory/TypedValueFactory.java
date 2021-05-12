@@ -128,8 +128,12 @@ public class TypedValueFactory {
         return generator.process(type);
     }
 
-    public static MutableTypedValue mutableNllableValue(Type type) {
+    public static MutableTypedValue mutableNullableValue(Type type) {
         MutableTypedValueGenerator generator = new MutableTypedValueGenerator();
         return generator.process(type);
+    }
+
+    public static MutableTypedValue mutableNullableValue() {
+        return new MutableObjectValue();
     }
 }

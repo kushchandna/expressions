@@ -10,6 +10,7 @@ import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
+import com.kush.lib.expressions.clauses.FunctionExpression;
 import com.kush.lib.expressions.clauses.GreaterThanEqualsExpression;
 import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
@@ -87,6 +88,11 @@ public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluator
         @Override
         protected ExpressionEvaluator<T> handle(LessThanEqualsExpression expression) throws ExpressionException {
             return new LessThanEqualsExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
+        }
+
+        @Override
+        protected ExpressionEvaluator<T> handle(FunctionExpression expression) throws ExpressionException {
+            return new FunctionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this, null);
         }
 
         @Override

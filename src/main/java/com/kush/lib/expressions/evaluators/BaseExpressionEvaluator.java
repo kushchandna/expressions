@@ -2,8 +2,13 @@ package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.ExpressionException.exceptionWithMessage;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionEvaluator;
+import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.types.Type;
 
@@ -34,5 +39,14 @@ abstract class BaseExpressionEvaluator<E extends Expression, T> implements Expre
             throw exceptionWithMessage("%s operation can only accept type %s, but got %s",
                     operation, expressionType, type);
         }
+    }
+
+    protected final Collection<ExpressionEvaluator<T>> createEvaluators(ExpressionEvaluatorFactory<T> evaluatorFactory,
+            Collection<Expression> expressions) throws ExpressionException {
+        List<ExpressionEvaluator<T>> evaluators = new ArrayList<>();
+        for (Expression argument : expressions) {
+            evaluators.add(evaluatorFactory.create(argument));
+        }
+        return evaluators;
     }
 }
