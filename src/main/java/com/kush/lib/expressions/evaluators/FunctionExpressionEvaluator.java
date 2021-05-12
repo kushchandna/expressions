@@ -1,7 +1,10 @@
 package com.kush.lib.expressions.evaluators;
 
+import static com.kush.lib.expressions.ExpressionException.exceptionWithMessage;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
@@ -9,7 +12,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.FunctionExpression;
 import com.kush.lib.expressions.functions.FunctionExecutor;
 import com.kush.lib.expressions.functions.FunctionSpec;
-import com.kush.lib.expressions.functions.FunctonSpecRepository;
+import com.kush.lib.expressions.functions.FunctonsRepository;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 
@@ -21,14 +24,17 @@ class FunctionExpressionEvaluator<T> extends BaseExpressionEvaluator<FunctionExp
     private final List<ExpressionEvaluator<T>> argEvaluators;
 
     public FunctionExpressionEvaluator(FunctionExpression expression, ExpressionEvaluatorFactory<T> evaluatorFactory,
-            FunctonSpecRepository repository) throws ExpressionException {
+            FunctonsRepository repository) throws ExpressionException {
         super(expression);
 
-        FunctionSpec functionSpec = repository.getFunctionSpec(expression.getFunctionName());
-        Class<?> returnTypeClass = functionSpec.getReturnType();
+        Optional<FunctionSpec> functionSpec = repository.getFunctionSpec(expression.getFunctionName());
+        if (!functionSpec.isPresent()) {
+            throw exceptionWithMessage("No function found with name '%s'", expression.getFunctionName());
+        }
+        Class<?> returnTypeClass = functionSpec.get().getReturnType();
         returnType = Type.forClass(returnTypeClass);
         argEvaluators = new ArrayList<>(createEvaluators(evaluatorFactory, expression.getArguments()));
-        functionExecutor = functionSpec.getFunctionExecutor();
+        functionExecutor = functionSpec.get().getFunctionExecutor();
     }
 
     @Override

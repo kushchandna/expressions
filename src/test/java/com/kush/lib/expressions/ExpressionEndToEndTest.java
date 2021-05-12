@@ -53,7 +53,7 @@ public class ExpressionEndToEndTest {
         Expression expression = parser.parse(sql);
 
         AspectFieldEvaluationFactory<T> fieldEvaluatorFactory = new AspectFieldEvaluationFactory<>(aspect);
-        ExpressionEvaluatorFactory<T> evaluatorFactory = new DefaultExpressionEvaluatorFactory<>(fieldEvaluatorFactory);
+        ExpressionEvaluatorFactory<T> evaluatorFactory = new DefaultExpressionEvaluatorFactory<>(fieldEvaluatorFactory, null);
         ExpressionEvaluator<T> evaluator = evaluatorFactory.create(expression);
 
         Type type = evaluator.evaluateType();

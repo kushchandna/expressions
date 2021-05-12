@@ -20,7 +20,7 @@ public class InExpressionEvaluatorTest {
     @Test
     public void existingConstantValue() throws Exception {
         ExpressionFactory expressionFactory = new DefaultExpressionFactory();
-        ExpressionEvaluatorFactory<?> evaluatorFactory = new DefaultExpressionEvaluatorFactory<>(null);
+        ExpressionEvaluatorFactory<?> evaluatorFactory = new DefaultExpressionEvaluatorFactory<>(null, null);
         Expression inExpression = expressionFactory.createInExpression(
                 expressionFactory.createConstantIntExpression(1),
                 asList(
@@ -34,7 +34,7 @@ public class InExpressionEvaluatorTest {
     @Test
     public void nonExistingConstantValue() throws Exception {
         ExpressionFactory expressionFactory = new DefaultExpressionFactory();
-        ExpressionEvaluatorFactory<?> evaluatorFactory = new DefaultExpressionEvaluatorFactory<>(null);
+        ExpressionEvaluatorFactory<?> evaluatorFactory = new DefaultExpressionEvaluatorFactory<>(null, null);
         Expression inExpression = expressionFactory.createInExpression(
                 expressionFactory.createConstantIntExpression(1),
                 asList(

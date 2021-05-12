@@ -18,13 +18,15 @@ import com.kush.lib.expressions.clauses.LessThanEqualsExpression;
 import com.kush.lib.expressions.clauses.LessThanExpression;
 import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
+import com.kush.lib.expressions.functions.FunctonsRepository;
 
 public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluatorFactory<T> {
 
     private final InternalExpressionEvaluatorFactory internalFactory;
 
-    public DefaultExpressionEvaluatorFactory(FieldExpressionEvaluatorFactory<T> fieldEvaluatorFactory) {
-        internalFactory = new InternalExpressionEvaluatorFactory(fieldEvaluatorFactory);
+    public DefaultExpressionEvaluatorFactory(FieldExpressionEvaluatorFactory<T> fieldEvaluatorFactory,
+            FunctonsRepository functonsRepository) {
+        internalFactory = new InternalExpressionEvaluatorFactory(fieldEvaluatorFactory, functonsRepository);
     }
 
     @Override
@@ -35,9 +37,12 @@ public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluator
     private class InternalExpressionEvaluatorFactory extends ExpressionProcessor<ExpressionEvaluator<T>> {
 
         private final FieldExpressionEvaluatorFactory<T> fieldEvaluatorFactory;
+        private final FunctonsRepository functonsRepository;
 
-        public InternalExpressionEvaluatorFactory(FieldExpressionEvaluatorFactory<T> fieldEvaluatorFactory) {
+        public InternalExpressionEvaluatorFactory(FieldExpressionEvaluatorFactory<T> fieldEvaluatorFactory,
+                FunctonsRepository functonsRepository) {
             this.fieldEvaluatorFactory = fieldEvaluatorFactory;
+            this.functonsRepository = functonsRepository;
         }
 
         @Override
@@ -92,7 +97,7 @@ public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluator
 
         @Override
         protected ExpressionEvaluator<T> handle(FunctionExpression expression) throws ExpressionException {
-            return new FunctionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this, null);
+            return new FunctionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this, functonsRepository);
         }
 
         @Override
