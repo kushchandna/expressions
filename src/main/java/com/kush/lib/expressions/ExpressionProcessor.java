@@ -30,61 +30,31 @@ public abstract class ExpressionProcessor<T> {
         return invokeSpecificProcessMethod(expression);
     }
 
-    protected T handle(FieldExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(FieldExpression expression) throws ExpressionException;
 
-    protected T handle(AndExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(AndExpression expression) throws ExpressionException;
 
-    protected T handle(OrExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(OrExpression expression) throws ExpressionException;
 
-    protected T handle(NotExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(NotExpression expression) throws ExpressionException;
 
-    protected T handle(EqualsExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(EqualsExpression expression) throws ExpressionException;
 
-    protected T handle(InExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(InExpression expression) throws ExpressionException;
 
-    protected T handle(GreaterThanExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(GreaterThanExpression expression) throws ExpressionException;
 
-    protected T handle(GreaterThanEqualsExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(GreaterThanEqualsExpression expression) throws ExpressionException;
 
-    protected T handle(LessThanExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(LessThanExpression expression) throws ExpressionException;
 
-    protected T handle(LessThanEqualsExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(LessThanEqualsExpression expression) throws ExpressionException;
 
-    protected T handle(ConstantStringExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(ConstantStringExpression expression) throws ExpressionException;
 
-    protected T handle(ConstantIntExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
+    protected abstract T handle(ConstantIntExpression expression) throws ExpressionException;
 
-    protected T handle(FunctionExpression expression) throws ExpressionException {
-        return getDefaultValue();
-    }
-
-    protected T getDefaultValue() {
-        throw new UnsupportedOperationException();
-    }
+    protected abstract T handle(FunctionExpression expression) throws ExpressionException;
 
     private void initializeHandlingMethodsIfRequired() {
         if (handlingMethods == null) {
