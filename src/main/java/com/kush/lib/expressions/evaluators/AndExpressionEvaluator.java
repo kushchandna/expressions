@@ -1,8 +1,8 @@
 package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.newMutableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -40,7 +40,7 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
         validateType(leftExprEvaluator, BOOLEAN, "AND");
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
         validateType(rightExprEvaluator, BOOLEAN, "AND");
-        evaluatedResult = mutableValue(BOOLEAN);
+        evaluatedResult = newMutableValue(BOOLEAN);
     }
 
     @Override
@@ -49,7 +49,7 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
         boolean leftResult = leftValue.getBoolean();
         if (!leftValue.isNull() && leftResult == false) {
             // left != null && left == false
-            return booleanValue(leftResult, evaluatedResult);
+            return value(leftResult, evaluatedResult);
         }
 
         // left == null || left == true

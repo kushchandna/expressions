@@ -1,8 +1,8 @@
 package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.newMutableValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +32,7 @@ class InExpressionEvaluator<T> implements ExpressionEvaluator<T> {
             ExpressionEvaluator<T> evaluator = exprEvalFactory.create(inExpr);
             inExprEvaluators.add(evaluator);
         }
-        evaluatedResult = mutableValue(BOOLEAN);
+        evaluatedResult = newMutableValue(BOOLEAN);
     }
 
     @Override
@@ -41,10 +41,10 @@ class InExpressionEvaluator<T> implements ExpressionEvaluator<T> {
         for (ExpressionEvaluator<T> inExprEval : inExprEvaluators) {
             TypedValue inExprValue = inExprEval.evaluate(object);
             if (targetValue.equals(inExprValue)) {
-                return booleanValue(true, evaluatedResult);
+                return value(true, evaluatedResult);
             }
         }
-        return booleanValue(false, evaluatedResult);
+        return value(false, evaluatedResult);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.kush.lib.expressions.evaluators;
 
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -28,7 +28,7 @@ public class InExpressionEvaluatorTest {
                         expressionFactory.createConstantIntExpression(2)));
         ExpressionEvaluator<?> evaluator = evaluatorFactory.create(inExpression);
         TypedValue value = evaluator.evaluate(null);
-        assertThat(value, is(equalTo(booleanValue(true))));
+        assertThat(value, is(equalTo(value(true))));
     }
 
     @Test
@@ -42,6 +42,6 @@ public class InExpressionEvaluatorTest {
                         expressionFactory.createConstantIntExpression(3)));
         ExpressionEvaluator<?> evaluator = evaluatorFactory.create(inExpression);
         TypedValue value = evaluator.evaluate(null);
-        assertThat(value, is(equalTo(booleanValue(false))));
+        assertThat(value, is(equalTo(value(false))));
     }
 }

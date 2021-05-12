@@ -6,35 +6,35 @@ import com.kush.lib.expressions.types.TypedValue;
 
 public class TypedValueFactory {
 
-    public static TypedValue booleanValue(boolean value) {
+    public static TypedValue value(boolean value) {
         return new BooleanValue(value);
     }
 
-    public static TypedValue byteValue(byte value) {
+    public static TypedValue value(byte value) {
         return new ByteValue(value);
     }
 
-    public static TypedValue charValue(char value) {
+    public static TypedValue value(char value) {
         return new CharValue(value);
     }
 
-    public static TypedValue intValue(int value) {
+    public static TypedValue value(int value) {
         return new IntValue(value);
     }
 
-    public static TypedValue longValue(long value) {
+    public static TypedValue value(long value) {
         return new LongValue(value);
     }
 
-    public static TypedValue floatValue(float value) {
+    public static TypedValue value(float value) {
         return new FloatValue(value);
     }
 
-    public static TypedValue doubleValue(double value) {
+    public static TypedValue value(double value) {
         return new DoubleValue(value);
     }
 
-    public static TypedValue stringValue(String value) {
+    public static TypedValue value(String value) {
         return new StringValue(value);
     }
 
@@ -51,47 +51,52 @@ public class TypedValueFactory {
         return generator.process(type);
     }
 
-    public static MutableTypedValue booleanValue(boolean value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(boolean value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue byteValue(byte value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(byte value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue charValue(char value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(char value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue intValue(int value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(int value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue longValue(long value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(long value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue floatValue(float value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(float value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue doubleValue(double value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(double value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue stringValue(String value, MutableTypedValue typedValue) {
+    public static MutableTypedValue value(String value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
 
-    public static MutableTypedValue mutableValue(Type type) {
+    public static MutableTypedValue value(Object value, MutableTypedValue typedValue) {
+        typedValue.set(value);
+        return typedValue;
+    }
+
+    public static MutableTypedValue newMutableValue(Type type) {
         MutableTypedValueGenerator generator = new MutableTypedValueGenerator();
         return generator.process(type);
     }

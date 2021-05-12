@@ -1,13 +1,6 @@
 package com.kush.lib.expressions.types.factory;
 
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.byteValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.charValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.doubleValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.floatValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.intValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.longValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.stringValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 
 import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.TypedValue;
@@ -24,42 +17,42 @@ class NonNullTypedValueGenerator extends TypeProcessor<TypedValue> {
 
     @Override
     protected TypedValue handleBoolean() {
-        return booleanValue((Boolean) value);
+        return value((Boolean) value);
     }
 
     @Override
     protected TypedValue handleByte() {
-        return byteValue((Byte) value);
+        return value((Byte) value);
     }
 
     @Override
     protected TypedValue handleChar() {
-        return charValue((Character) value);
+        return value((Character) value);
     }
 
     @Override
     protected TypedValue handleInt() {
-        return intValue((Integer) value);
+        return value((Integer) value);
     }
 
     @Override
     protected TypedValue handleLong() {
-        return longValue((Long) value);
+        return value((Long) value);
     }
 
     @Override
     protected TypedValue handleFloat() {
-        return floatValue((Float) value);
+        return value((Float) value);
     }
 
     @Override
     protected TypedValue handleDouble() {
-        return doubleValue((Double) value);
+        return value((Double) value);
     }
 
     @Override
     protected TypedValue handleString() {
-        return stringValue((String) value);
+        return value((String) value);
     }
 
     @Override

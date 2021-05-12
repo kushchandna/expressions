@@ -1,13 +1,8 @@
 package com.kush.lib.expressions.aspect;
 
-import static com.kush.lib.expressions.types.Type.STRING;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.doubleValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.floatValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.intValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.longValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.newMutableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.stringValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 import static java.util.stream.Collectors.toList;
 
 import java.util.Arrays;
@@ -20,6 +15,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.handler.TypeHandler;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
+import com.kush.lib.expressions.types.factory.MutableTypedValue;
 
 class ClassBasedAspect<T> extends BaseAspect<T> {
 
@@ -38,11 +34,12 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         classField.setAccessible(true);
         String fieldName = classField.getName();
         Type fieldType = Type.forClass(classField.getType());
+        MutableTypedValue mutableValue = newMutableValue(fieldType);
         Accessor<T> accessor = new Accessor<T>() {
 
             @Override
             public TypedValue access(T object) throws AccessException {
-                ClassFieldToTypedResultHandler handler = new ClassFieldToTypedResultHandler(classField, object);
+                ClassFieldToTypedResultHandler handler = new ClassFieldToTypedResultHandler(classField, object, mutableValue);
                 try {
                     return handler.handle(fieldType);
                 } catch (ExpressionException e) {
@@ -60,10 +57,12 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
 
         private final java.lang.reflect.Field classField;
         private final Object object;
+        private final MutableTypedValue mutableValue;
 
-        public ClassFieldToTypedResultHandler(java.lang.reflect.Field classField, Object object) {
+        public ClassFieldToTypedResultHandler(java.lang.reflect.Field classField, Object object, MutableTypedValue mutableValue) {
             this.classField = classField;
             this.object = object;
+            this.mutableValue = mutableValue;
         }
 
         @Override
@@ -71,9 +70,9 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
             try {
                 Object value = classField.get(object);
                 if (value == null) {
-                    return nullValue(STRING);
+                    return nullValue(mutableValue);
                 } else {
-                    return stringValue((String) value);
+                    return value((String) value);
                 }
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
@@ -84,7 +83,7 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         protected TypedValue handleLong() throws ExpressionException {
             try {
                 long value = classField.getLong(object);
-                return longValue(value);
+                return value(value);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
             }
@@ -94,7 +93,7 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         protected TypedValue handleInteger() throws ExpressionException {
             try {
                 int value = classField.getInt(object);
-                return intValue(value);
+                return value(value);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
             }
@@ -104,7 +103,7 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         protected TypedValue handleFloat() throws ExpressionException {
             try {
                 float value = classField.getFloat(object);
-                return floatValue(value);
+                return value(value);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
             }
@@ -114,7 +113,7 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         protected TypedValue handleDouble() throws ExpressionException {
             try {
                 double value = classField.getDouble(object);
-                return doubleValue(value);
+                return value(value);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
             }
@@ -124,7 +123,7 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         protected TypedValue handleBoolean() throws ExpressionException {
             try {
                 boolean value = classField.getBoolean(object);
-                return booleanValue(value);
+                return value(value);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
             }

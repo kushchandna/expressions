@@ -1,8 +1,8 @@
 package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.booleanValue;
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.mutableValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.newMutableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 
 import com.kush.lib.expressions.ExpressionEvaluator;
@@ -29,7 +29,7 @@ class NotExpressionEvaluator<T> extends BaseExpressionEvaluator<NotExpression, T
         super(expression);
         evaluator = evaluatorFactory.create(expression.getChild());
         validateType(evaluator, BOOLEAN, "NOT");
-        evaluatedResult = mutableValue(BOOLEAN);
+        evaluatedResult = newMutableValue(BOOLEAN);
     }
 
     @Override
@@ -38,7 +38,7 @@ class NotExpressionEvaluator<T> extends BaseExpressionEvaluator<NotExpression, T
         if (value.isNull()) {
             return nullValue(evaluatedResult);
         }
-        return booleanValue(!value.getBoolean(), evaluatedResult);
+        return value(!value.getBoolean(), evaluatedResult);
     }
 
     @Override

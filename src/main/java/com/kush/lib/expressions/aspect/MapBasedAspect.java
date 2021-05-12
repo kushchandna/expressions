@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.aspect;
 
-import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullableValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.newMutableValue;
+import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 import static java.util.stream.Collectors.toList;
 
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.Map;
 import com.kush.lib.expressions.Accessor;
 import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.Type;
+import com.kush.lib.expressions.types.factory.MutableTypedValue;
 
 @ImpactedByAutoBoxing
 class MapBasedAspect extends BaseAspect<Map<String, Object>> {
@@ -25,7 +27,8 @@ class MapBasedAspect extends BaseAspect<Map<String, Object>> {
     }
 
     private static Field<Map<String, Object>> createField(String fieldName, Type fieldType) {
-        Accessor<Map<String, Object>> accessor = map -> nullableValue(map.get(fieldName), fieldType);
+        MutableTypedValue mutableValue = newMutableValue(fieldType);
+        Accessor<Map<String, Object>> accessor = map -> value(map.get(fieldName), mutableValue);
         return new DefaultField<>(fieldName, fieldType, accessor);
     }
 }
