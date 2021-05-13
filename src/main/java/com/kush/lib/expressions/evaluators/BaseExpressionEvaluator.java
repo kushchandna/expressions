@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.ExpressionException.exceptionWithMessage;
+import static java.util.Collections.singleton;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,18 +27,27 @@ abstract class BaseExpressionEvaluator<E extends Expression, T> implements Expre
             ExpressionEvaluator<T> rightExprEvaluator, String operation) throws ExpressionException {
         Type leftType = leftExprEvaluator.evaluateType();
         Type rightType = rightExprEvaluator.evaluateType();
+        validateSameTypeOnBothSides(leftType, rightType, operation);
+    }
+
+    protected final void validateSameTypeOnBothSides(Type leftType, Type rightType, String operation) throws ExpressionException {
         if (leftType != rightType) {
             throw exceptionWithMessage("Both sides of an %s expression should be same, but got %s and %s",
                     operation, leftType, rightType);
         }
     }
 
-    protected final void validateType(ExpressionEvaluator<T> expressionEvaluator, Type expressionType,
-            String operation) throws ExpressionException {
+    protected final void validateType(ExpressionEvaluator<T> expressionEvaluator, String operation,
+            Type expressionType) throws ExpressionException {
+        validateType(expressionEvaluator, operation, singleton(expressionType));
+    }
+
+    protected final void validateType(ExpressionEvaluator<T> expressionEvaluator, String operation,
+            Collection<Type> allowedTypes) throws ExpressionException {
         Type type = expressionEvaluator.evaluateType();
-        if (type != expressionType) {
-            throw exceptionWithMessage("%s operation can only accept type %s, but got %s",
-                    operation, expressionType, type);
+        if (!allowedTypes.contains(type)) {
+            throw exceptionWithMessage("%s operation can only accept types %s, but got %s",
+                    operation, allowedTypes, type);
         }
     }
 

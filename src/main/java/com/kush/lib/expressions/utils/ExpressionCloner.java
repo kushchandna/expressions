@@ -8,9 +8,11 @@ import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.ExpressionFactory;
 import com.kush.lib.expressions.ExpressionProcessor;
+import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
 import com.kush.lib.expressions.clauses.FunctionExpression;
@@ -19,8 +21,10 @@ import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
 import com.kush.lib.expressions.clauses.LessThanEqualsExpression;
 import com.kush.lib.expressions.clauses.LessThanExpression;
+import com.kush.lib.expressions.clauses.MultiplicationExpression;
 import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
+import com.kush.lib.expressions.clauses.SubtractionExpression;
 
 public class ExpressionCloner extends ExpressionProcessor<Expression> {
 
@@ -95,6 +99,26 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     @Override
     protected Expression handle(ConstantIntExpression expression) {
         return expressionFactory.createConstantIntExpression(expression.getValue());
+    }
+
+    @Override
+    protected Expression handle(AdditionExpression expression) throws ExpressionException {
+        return expressionFactory.createAdditionExpression(process(expression.getLeft()), process(expression.getRight()));
+    }
+
+    @Override
+    protected Expression handle(SubtractionExpression expression) throws ExpressionException {
+        return expressionFactory.createSubtractionExpression(process(expression.getLeft()), process(expression.getRight()));
+    }
+
+    @Override
+    protected Expression handle(MultiplicationExpression expression) throws ExpressionException {
+        return expressionFactory.createMultiplicationExpression(process(expression.getLeft()), process(expression.getRight()));
+    }
+
+    @Override
+    protected Expression handle(DivisionExpression expression) throws ExpressionException {
+        return expressionFactory.createDivisionExpression(process(expression.getLeft()), process(expression.getRight()));
     }
 
     private List<Expression> processExpressions(Collection<Expression> inExpressions) throws ExpressionException {

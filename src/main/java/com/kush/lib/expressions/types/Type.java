@@ -17,7 +17,7 @@ public enum Type {
 
     private List<Class<?>> javaClasses;
 
-    private Type(Class<?>... javaClasses) {
+    Type(Class<?>... javaClasses) {
         this.javaClasses = Arrays.asList(javaClasses);
     }
 

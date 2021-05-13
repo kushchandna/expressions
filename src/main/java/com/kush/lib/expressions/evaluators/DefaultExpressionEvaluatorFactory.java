@@ -5,9 +5,11 @@ import com.kush.lib.expressions.ExpressionEvaluator;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.ExpressionProcessor;
+import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
 import com.kush.lib.expressions.clauses.FunctionExpression;
@@ -16,8 +18,10 @@ import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
 import com.kush.lib.expressions.clauses.LessThanEqualsExpression;
 import com.kush.lib.expressions.clauses.LessThanExpression;
+import com.kush.lib.expressions.clauses.MultiplicationExpression;
 import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
+import com.kush.lib.expressions.clauses.SubtractionExpression;
 import com.kush.lib.expressions.functions.FunctonsRepository;
 
 public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluatorFactory<T> {
@@ -108,6 +112,26 @@ public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluator
         @Override
         protected ExpressionEvaluator<T> handle(ConstantIntExpression expression) {
             return new ConstantIntExpressionEvaluator<>(expression);
+        }
+
+        @Override
+        protected ExpressionEvaluator<T> handle(AdditionExpression expression) throws ExpressionException {
+            return new AdditionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
+        }
+
+        @Override
+        protected ExpressionEvaluator<T> handle(SubtractionExpression expression) throws ExpressionException {
+            return new SubtractionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
+        }
+
+        @Override
+        protected ExpressionEvaluator<T> handle(MultiplicationExpression expression) throws ExpressionException {
+            return new MultiplicationExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
+        }
+
+        @Override
+        protected ExpressionEvaluator<T> handle(DivisionExpression expression) throws ExpressionException {
+            return new DivisionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
         }
     }
 }

@@ -37,9 +37,9 @@ class OrExpressionEvaluator<T> extends BaseExpressionEvaluator<OrExpression, T> 
             throws ExpressionException {
         super(expression);
         leftExprEvaluator = evaluatorFactory.create(expression.getLeft());
-        validateType(leftExprEvaluator, BOOLEAN, "OR");
+        validateType(leftExprEvaluator, "OR", BOOLEAN);
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
-        validateType(rightExprEvaluator, BOOLEAN, "OR");
+        validateType(rightExprEvaluator, "OR", BOOLEAN);
         evaluatedResult = newMutableValue(BOOLEAN);
     }
 

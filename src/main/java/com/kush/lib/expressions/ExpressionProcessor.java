@@ -7,9 +7,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
 import com.kush.lib.expressions.clauses.FunctionExpression;
@@ -18,8 +20,10 @@ import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
 import com.kush.lib.expressions.clauses.LessThanEqualsExpression;
 import com.kush.lib.expressions.clauses.LessThanExpression;
+import com.kush.lib.expressions.clauses.MultiplicationExpression;
 import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
+import com.kush.lib.expressions.clauses.SubtractionExpression;
 
 public abstract class ExpressionProcessor<T> {
 
@@ -55,6 +59,14 @@ public abstract class ExpressionProcessor<T> {
     protected abstract T handle(ConstantIntExpression expression) throws ExpressionException;
 
     protected abstract T handle(FunctionExpression expression) throws ExpressionException;
+
+    protected abstract T handle(AdditionExpression expression) throws ExpressionException;
+
+    protected abstract T handle(SubtractionExpression expression) throws ExpressionException;
+
+    protected abstract T handle(MultiplicationExpression expression) throws ExpressionException;
+
+    protected abstract T handle(DivisionExpression expression) throws ExpressionException;
 
     private void initializeHandlingMethodsIfRequired() {
         if (handlingMethods == null) {

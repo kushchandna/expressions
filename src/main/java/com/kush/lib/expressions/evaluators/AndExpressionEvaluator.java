@@ -37,9 +37,9 @@ class AndExpressionEvaluator<T> extends BaseExpressionEvaluator<AndExpression, T
             throws ExpressionException {
         super(expression);
         leftExprEvaluator = evaluatorFactory.create(expression.getLeft());
-        validateType(leftExprEvaluator, BOOLEAN, "AND");
+        validateType(leftExprEvaluator, "AND", BOOLEAN);
         rightExprEvaluator = evaluatorFactory.create(expression.getRight());
-        validateType(rightExprEvaluator, BOOLEAN, "AND");
+        validateType(rightExprEvaluator, "AND", BOOLEAN);
         evaluatedResult = newMutableValue(BOOLEAN);
     }
 

@@ -28,7 +28,7 @@ class NotExpressionEvaluator<T> extends BaseExpressionEvaluator<NotExpression, T
             throws ExpressionException {
         super(expression);
         evaluator = evaluatorFactory.create(expression.getChild());
-        validateType(evaluator, BOOLEAN, "NOT");
+        validateType(evaluator, "NOT", BOOLEAN);
         evaluatedResult = newMutableValue(BOOLEAN);
     }
 

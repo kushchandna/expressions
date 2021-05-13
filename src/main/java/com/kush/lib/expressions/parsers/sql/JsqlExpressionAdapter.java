@@ -12,6 +12,10 @@ import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.NotExpression;
 import net.sf.jsqlparser.expression.StringValue;
+import net.sf.jsqlparser.expression.operators.arithmetic.Addition;
+import net.sf.jsqlparser.expression.operators.arithmetic.Division;
+import net.sf.jsqlparser.expression.operators.arithmetic.Multiplication;
+import net.sf.jsqlparser.expression.operators.arithmetic.Subtraction;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.GreaterThan;
 import net.sf.jsqlparser.expression.operators.relational.GreaterThanEquals;
@@ -107,6 +111,26 @@ class JsqlExpressionAdapter extends ExpressionVisitorAdapter {
     @Override
     public void visit(Function function) {
         add(expressionFactory.createFunctionExpression(function.getName(), adapt(function.getParameters())));
+    }
+
+    @Override
+    public void visit(Addition expr) {
+        add(expressionFactory.createAdditionExpression(adapt(expr.getLeftExpression()), adapt(expr.getRightExpression())));
+    }
+
+    @Override
+    public void visit(Subtraction expr) {
+        add(expressionFactory.createSubtractionExpression(adapt(expr.getLeftExpression()), adapt(expr.getRightExpression())));
+    }
+
+    @Override
+    public void visit(Multiplication expr) {
+        add(expressionFactory.createMultiplicationExpression(adapt(expr.getLeftExpression()), adapt(expr.getRightExpression())));
+    }
+
+    @Override
+    public void visit(Division expr) {
+        add(expressionFactory.createDivisionExpression(adapt(expr.getLeftExpression()), adapt(expr.getRightExpression())));
     }
 
     private void processBinaryExpression(net.sf.jsqlparser.expression.Expression expr,

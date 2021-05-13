@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionFactory;
+import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
 import com.kush.lib.expressions.clauses.FunctionExpression;
@@ -15,8 +17,10 @@ import com.kush.lib.expressions.clauses.GreaterThanExpression;
 import com.kush.lib.expressions.clauses.InExpression;
 import com.kush.lib.expressions.clauses.LessThanEqualsExpression;
 import com.kush.lib.expressions.clauses.LessThanExpression;
+import com.kush.lib.expressions.clauses.MultiplicationExpression;
 import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
+import com.kush.lib.expressions.clauses.SubtractionExpression;
 
 public class DefaultExpressionFactory implements ExpressionFactory {
 
@@ -83,5 +87,25 @@ public class DefaultExpressionFactory implements ExpressionFactory {
     @Override
     public ConstantIntExpression createConstantIntExpression(int value) {
         return new DefaultConstantIntExpression(value);
+    }
+
+    @Override
+    public AdditionExpression createAdditionExpression(Expression leftExpr, Expression rightExpr) {
+        return new DefaultAdditionExpression(leftExpr, rightExpr);
+    }
+
+    @Override
+    public SubtractionExpression createSubtractionExpression(Expression leftExpr, Expression rightExpr) {
+        return new DefaultSubtractionExpression(leftExpr, rightExpr);
+    }
+
+    @Override
+    public MultiplicationExpression createMultiplicationExpression(Expression leftExpr, Expression rightExpr) {
+        return new DefaultMultiplicationExpression(leftExpr, rightExpr);
+    }
+
+    @Override
+    public DivisionExpression createDivisionExpression(Expression leftExpr, Expression rightExpr) {
+        return new DefaultDivisionExpression(leftExpr, rightExpr);
     }
 }
