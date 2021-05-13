@@ -6,6 +6,11 @@ public interface TypedValue extends Comparable<TypedValue>, Cloneable {
 
     Type getType();
 
+    // TODO can be used to support function overloading
+    default Class<?> getTypeClass() {
+        return getType().getPrimaryClass();
+    }
+
     boolean isNull();
 
     boolean getBoolean();

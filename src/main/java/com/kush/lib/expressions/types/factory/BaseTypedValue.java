@@ -97,6 +97,9 @@ abstract class BaseTypedValue implements TypedValue {
         if (getType() != other.getType()) {
             return false;
         }
+        if (getTypeClass() != other.getTypeClass()) {
+            return false;
+        }
         if (isNull() != other.isNull()) {
             return false;
         }

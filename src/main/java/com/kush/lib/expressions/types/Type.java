@@ -32,4 +32,11 @@ public enum Type {
         }
         return OBJECT;
     }
+
+    public Class<?> getPrimaryClass() {
+        if (javaClasses.isEmpty()) {
+            return Object.class;
+        }
+        return javaClasses.get(0);
+    }
 }
