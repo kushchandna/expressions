@@ -5,7 +5,7 @@ import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.MultiplicationExpression;
-import com.kush.lib.expressions.types.processors.TypeHandler;
+import com.kush.lib.expressions.types.handlers.TypeHandler;
 
 class MultiplicationExpressionEvaluator<T> extends BaseArithmeticExpressionEvaluator<MultiplicationExpression, T> {
 

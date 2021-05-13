@@ -1,9 +1,9 @@
 package com.kush.lib.expressions.types.factory;
 
 import com.kush.lib.expressions.types.TypedValue;
-import com.kush.lib.expressions.types.processors.IntReturningTypeProcessor;
+import com.kush.lib.expressions.types.handlers.IntReturningTypeHandler;
 
-class NonNullTypedComparisionProcessor extends IntReturningTypeProcessor {
+class NonNullTypedComparisionProcessor extends IntReturningTypeHandler {
 
     private final TypedValue o1;
     private final TypedValue o2;

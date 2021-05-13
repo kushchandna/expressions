@@ -4,7 +4,7 @@ import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 
 import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.TypedValue;
-import com.kush.lib.expressions.types.processors.TypeHandler;
+import com.kush.lib.expressions.types.handlers.TypeHandler;
 
 @ImpactedByAutoBoxing
 class NonNullTypedValueGenerator extends TypeHandler<TypedValue> {

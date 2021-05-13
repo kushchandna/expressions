@@ -1,8 +1,8 @@
-package com.kush.lib.expressions.types.processors;
+package com.kush.lib.expressions.types.handlers;
 
 import com.kush.lib.expressions.types.Type;
 
-public abstract class IntReturningTypeProcessor {
+public abstract class IntReturningTypeHandler {
 
     public final int process(Type type) {
         switch (type) {

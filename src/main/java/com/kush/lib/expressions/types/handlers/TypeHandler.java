@@ -1,4 +1,4 @@
-package com.kush.lib.expressions.types.processors;
+package com.kush.lib.expressions.types.handlers;
 
 import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.ExpressionException;

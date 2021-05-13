@@ -17,7 +17,7 @@ import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 import com.kush.lib.expressions.types.factory.MutableTypedValue;
 import com.kush.lib.expressions.types.factory.TypedValueFactory;
-import com.kush.lib.expressions.types.processors.TypeHandler;
+import com.kush.lib.expressions.types.handlers.TypeHandler;
 
 class ClassBasedAspect<T> extends BaseAspect<T> {
 

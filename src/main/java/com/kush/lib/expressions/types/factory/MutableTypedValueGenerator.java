@@ -1,6 +1,6 @@
 package com.kush.lib.expressions.types.factory;
 
-import com.kush.lib.expressions.types.processors.TypeHandler;
+import com.kush.lib.expressions.types.handlers.TypeHandler;
 
 class MutableTypedValueGenerator extends TypeHandler<MutableTypedValue> {
 

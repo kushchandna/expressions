@@ -8,7 +8,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.commons.BinomialExpression;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
-import com.kush.lib.expressions.types.processors.TypeHandler;
+import com.kush.lib.expressions.types.handlers.TypeHandler;
 
 abstract class BaseArithmeticExpressionEvaluator<E extends BinomialExpression, T> extends BaseExpressionEvaluator<E, T> {
 
