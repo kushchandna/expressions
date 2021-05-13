@@ -1,5 +1,7 @@
 package com.kush.lib.expressions.types;
 
+import com.kush.commons.markers.ImpactedByAutoBoxing;
+
 public interface TypedValue extends Comparable<TypedValue>, Cloneable {
 
     Type getType();

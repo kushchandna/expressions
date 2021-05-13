@@ -7,8 +7,8 @@ import static java.util.stream.Collectors.toList;
 import java.util.Collection;
 import java.util.Map;
 
+import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.Accessor;
-import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.factory.MutableTypedValue;
 

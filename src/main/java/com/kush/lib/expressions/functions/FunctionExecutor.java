@@ -4,5 +4,5 @@ import com.kush.lib.expressions.types.TypedValue;
 
 public interface FunctionExecutor {
 
-    TypedValue execute(TypedValue... arguments);
+    TypedValue execute(TypedValue... arguments) throws FunctionExecutionFailedException;
 }

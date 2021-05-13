@@ -2,7 +2,7 @@ package com.kush.lib.expressions.types.factory;
 
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 
-import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
+import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.TypedValue;
 import com.kush.lib.expressions.types.processors.TypeProcessor;
 

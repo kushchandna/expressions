@@ -1,6 +1,9 @@
 package com.kush.lib.expressions.evaluators;
 
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
+import static com.kush.lib.expressions.utils.ExpressionUtils.getEvaluator;
+import static com.kush.lib.expressions.utils.ExpressionUtils.getEvaluatorFactory;
+import static com.kush.lib.expressions.utils.ExpressionUtils.parseSql;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -12,30 +15,13 @@ import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionEvaluator;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
-import com.kush.lib.expressions.ExpressionFactory;
-import com.kush.lib.expressions.aspect.Aspect;
-import com.kush.lib.expressions.aspect.AspectFieldEvaluationFactory;
-import com.kush.lib.expressions.aspect.Aspects;
-import com.kush.lib.expressions.factory.DefaultExpressionFactory;
-import com.kush.lib.expressions.functions.FunctonsRepository;
-import com.kush.lib.expressions.functions.samples.SampleFunctionsRepository;
-import com.kush.lib.expressions.parsers.sql.SqlExpressionParser;
 
 public class FunctionExpressionEvaluatorTest {
 
     @Test
     public void existingFunctionValue() throws Exception {
-        Aspect<SampleObject> aspect = Aspects.classBased(SampleObject.class);
-        FieldExpressionEvaluatorFactory<SampleObject> fieldEvalFactory = new AspectFieldEvaluationFactory<>(aspect);
-        FunctonsRepository functionsRepo = new SampleFunctionsRepository();
-        ExpressionEvaluatorFactory<SampleObject> evaluatorFactory =
-                new DefaultExpressionEvaluatorFactory<>(fieldEvalFactory, functionsRepo);
-
-        ExpressionFactory expressionFactory = new DefaultExpressionFactory();
-        SqlExpressionParser parser = new SqlExpressionParser(expressionFactory);
-        Expression expression = parser.parse("MultiplyInt(value, 3)");
-
-        ExpressionEvaluator<SampleObject> evaluator = evaluatorFactory.create(expression);
+        Expression expression = parseSql("MultiplyInt(value, 3)");
+        ExpressionEvaluator<SampleObject> evaluator = getEvaluator(expression, SampleObject.class, DummySupportedFunctions.class);
 
         assertThat(evaluator.evaluate(sample(0)), is(equalTo(value(0))));
         assertThat(evaluator.evaluate(sample(1)), is(equalTo(value(3))));
@@ -46,15 +32,9 @@ public class FunctionExpressionEvaluatorTest {
 
     @Test
     public void nonExistingFunctionValue() throws Exception {
-        Aspect<SampleObject> aspect = Aspects.classBased(SampleObject.class);
-        FieldExpressionEvaluatorFactory<SampleObject> fieldEvalFactory = new AspectFieldEvaluationFactory<>(aspect);
-        FunctonsRepository functionsRepo = new SampleFunctionsRepository();
+        Expression expression = parseSql("NonExistingFunction(value, 3)");
         ExpressionEvaluatorFactory<SampleObject> evaluatorFactory =
-                new DefaultExpressionEvaluatorFactory<>(fieldEvalFactory, functionsRepo);
-
-        ExpressionFactory expressionFactory = new DefaultExpressionFactory();
-        SqlExpressionParser parser = new SqlExpressionParser(expressionFactory);
-        Expression expression = parser.parse("NonExistingFunction(value, 3)");
+                getEvaluatorFactory(SampleObject.class, DummySupportedFunctions.class);
 
         assertThrows(ExpressionException.class, () -> {
             evaluatorFactory.create(expression);

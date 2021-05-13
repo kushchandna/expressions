@@ -1,6 +1,6 @@
 package com.kush.lib.expressions.types.processors;
 
-import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
+import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.Type;
 
 @ImpactedByAutoBoxing

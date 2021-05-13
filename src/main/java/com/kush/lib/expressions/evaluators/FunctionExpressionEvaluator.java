@@ -10,6 +10,7 @@ import com.kush.lib.expressions.ExpressionEvaluator;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.FunctionExpression;
+import com.kush.lib.expressions.functions.FunctionExecutionFailedException;
 import com.kush.lib.expressions.functions.FunctionExecutor;
 import com.kush.lib.expressions.functions.FunctionSpec;
 import com.kush.lib.expressions.functions.FunctonsRepository;
@@ -43,7 +44,15 @@ class FunctionExpressionEvaluator<T> extends BaseExpressionEvaluator<FunctionExp
         for (ExpressionEvaluator<T> argEvaluator : argEvaluators) {
             arguments.add(argEvaluator.evaluate(object));
         }
-        return functionExecutor.execute(arguments.toArray(new TypedValue[arguments.size()]));
+        return execute(arguments);
+    }
+
+    private TypedValue execute(List<TypedValue> arguments) throws ExpressionException {
+        try {
+            return functionExecutor.execute(arguments.toArray(new TypedValue[arguments.size()]));
+        } catch (FunctionExecutionFailedException e) {
+            throw new ExpressionException(e.getMessage(), e);
+        }
     }
 
     @Override

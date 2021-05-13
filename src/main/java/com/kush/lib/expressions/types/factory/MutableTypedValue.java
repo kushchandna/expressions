@@ -1,6 +1,6 @@
 package com.kush.lib.expressions.types.factory;
 
-import com.kush.lib.expressions.types.ImpactedByAutoBoxing;
+import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.TypedValue;
 
 public interface MutableTypedValue extends TypedValue {
