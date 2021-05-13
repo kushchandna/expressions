@@ -20,6 +20,11 @@ abstract class BaseTypedValue implements TypedValue {
     }
 
     @Override
+    public short getShort() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char getChar() {
         throw new UnsupportedOperationException();
     }

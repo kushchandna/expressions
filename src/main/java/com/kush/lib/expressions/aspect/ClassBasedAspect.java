@@ -1,5 +1,6 @@
 package com.kush.lib.expressions.aspect;
 
+import static com.kush.lib.expressions.types.Type.OBJECT;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.newMutableValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.nullValue;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
@@ -12,10 +13,11 @@ import java.util.Objects;
 import com.kush.lib.expressions.AccessException;
 import com.kush.lib.expressions.Accessor;
 import com.kush.lib.expressions.ExpressionException;
-import com.kush.lib.expressions.handler.TypeHandler;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 import com.kush.lib.expressions.types.factory.MutableTypedValue;
+import com.kush.lib.expressions.types.factory.TypedValueFactory;
+import com.kush.lib.expressions.types.processors.TypeHandler;
 
 class ClassBasedAspect<T> extends BaseAspect<T> {
 
@@ -90,16 +92,6 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
         }
 
         @Override
-        protected TypedValue handleInteger() throws ExpressionException {
-            try {
-                int value = classField.getInt(object);
-                return value(value);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new ExpressionException(e.getMessage(), e);
-            }
-        }
-
-        @Override
         protected TypedValue handleFloat() throws ExpressionException {
             try {
                 float value = classField.getFloat(object);
@@ -124,6 +116,56 @@ class ClassBasedAspect<T> extends BaseAspect<T> {
             try {
                 boolean value = classField.getBoolean(object);
                 return value(value);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                throw new ExpressionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        protected TypedValue handleByte() throws ExpressionException {
+            try {
+                byte value = classField.getByte(object);
+                return value(value);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                throw new ExpressionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        protected TypedValue handleShort() throws ExpressionException {
+            try {
+                short value = classField.getShort(object);
+                return value(value);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                throw new ExpressionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        protected TypedValue handleChar() throws ExpressionException {
+            try {
+                char value = classField.getChar(object);
+                return value(value);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                throw new ExpressionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        protected TypedValue handleInt() throws ExpressionException {
+            try {
+                int value = classField.getInt(object);
+                return value(value);
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                throw new ExpressionException(e.getMessage(), e);
+            }
+        }
+
+        @Override
+        protected TypedValue handleObject() throws ExpressionException {
+            try {
+                Object value = classField.get(object);
+                return TypedValueFactory.nullableValue(value, OBJECT);
             } catch (IllegalArgumentException | IllegalAccessException e) {
                 throw new ExpressionException(e.getMessage(), e);
             }

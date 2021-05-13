@@ -10,6 +10,8 @@ public abstract class IntReturningTypeProcessor {
             return handleBoolean();
         case BYTE:
             return handleByte();
+        case SHORT:
+            return handleShort();
         case CHAR:
             return handleChar();
         case INTEGER:
@@ -32,6 +34,8 @@ public abstract class IntReturningTypeProcessor {
     protected abstract int handleBoolean();
 
     protected abstract int handleByte();
+
+    protected abstract int handleShort();
 
     protected abstract int handleChar();
 

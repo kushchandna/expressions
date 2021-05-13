@@ -5,7 +5,7 @@ import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.clauses.DivisionExpression;
-import com.kush.lib.expressions.handler.TypeHandler;
+import com.kush.lib.expressions.types.processors.TypeHandler;
 
 class DivisionExpressionEvaluator<T> extends BaseArithmeticExpressionEvaluator<DivisionExpression, T> {
 
@@ -29,11 +29,6 @@ class DivisionExpressionEvaluator<T> extends BaseArithmeticExpressionEvaluator<D
             }
 
             @Override
-            protected ArithmeticOperationPerformer handleInteger() throws ExpressionException {
-                return (val1, val2) -> value(val1.getInt() / val2.getInt());
-            }
-
-            @Override
             protected ArithmeticOperationPerformer handleFloat() throws ExpressionException {
                 return (val1, val2) -> value(val1.getFloat() / val2.getFloat());
             }
@@ -45,6 +40,31 @@ class DivisionExpressionEvaluator<T> extends BaseArithmeticExpressionEvaluator<D
 
             @Override
             protected ArithmeticOperationPerformer handleBoolean() throws ExpressionException {
+                return unsupportedOperation();
+            }
+
+            @Override
+            protected ArithmeticOperationPerformer handleByte() throws ExpressionException {
+                return (val1, val2) -> value(val1.getByte() / val2.getByte());
+            }
+
+            @Override
+            protected ArithmeticOperationPerformer handleShort() throws ExpressionException {
+                return (val1, val2) -> value(val1.getShort() / val2.getShort());
+            }
+
+            @Override
+            protected ArithmeticOperationPerformer handleChar() throws ExpressionException {
+                return unsupportedOperation();
+            }
+
+            @Override
+            protected ArithmeticOperationPerformer handleInt() throws ExpressionException {
+                return (val1, val2) -> value(val1.getInt() / val2.getInt());
+            }
+
+            @Override
+            protected ArithmeticOperationPerformer handleObject() throws ExpressionException {
                 return unsupportedOperation();
             }
         };

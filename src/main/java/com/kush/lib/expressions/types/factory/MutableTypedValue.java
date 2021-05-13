@@ -11,6 +11,8 @@ public interface MutableTypedValue extends TypedValue {
 
     void set(byte value);
 
+    void set(short value);
+
     void set(char value);
 
     void set(int value);

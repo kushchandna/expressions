@@ -24,6 +24,11 @@ class NonNullTypedComparisionProcessor extends IntReturningTypeProcessor {
     }
 
     @Override
+    protected int handleShort() {
+        return Short.compare(o1.getByte(), o2.getByte());
+    }
+
+    @Override
     protected int handleChar() {
         return Character.compare(o1.getChar(), o2.getChar());
     }

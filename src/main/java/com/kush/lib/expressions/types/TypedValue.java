@@ -12,6 +12,8 @@ public interface TypedValue extends Comparable<TypedValue>, Cloneable {
 
     byte getByte();
 
+    short getShort();
+
     char getChar();
 
     int getInt();

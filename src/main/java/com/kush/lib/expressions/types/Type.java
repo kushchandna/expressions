@@ -7,6 +7,7 @@ public enum Type {
 
     BOOLEAN(boolean.class, Boolean.class),
     BYTE(byte.class, Byte.class),
+    SHORT(short.class, Short.class),
     CHAR(char.class, Character.class),
     INTEGER(int.class, Integer.class),
     LONG(long.class, Long.class),

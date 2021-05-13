@@ -1,6 +1,7 @@
 package com.kush.lib.expressions.types.factory;
 
 import com.kush.commons.markers.ImpactedByAutoBoxing;
+import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 
@@ -12,6 +13,10 @@ public class TypedValueFactory {
 
     public static TypedValue value(byte value) {
         return new ByteValue(value);
+    }
+
+    public static TypedValue value(short value) {
+        return new ShortValue(value);
     }
 
     public static TypedValue value(char value) {
@@ -48,7 +53,11 @@ public class TypedValueFactory {
             return nullValue(type);
         }
         NonNullTypedValueGenerator generator = new NonNullTypedValueGenerator(value);
-        return generator.process(type);
+        try {
+            return generator.handle(type);
+        } catch (ExpressionException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
     }
 
     public static MutableTypedValue value(boolean value, MutableTypedValue typedValue) {
@@ -57,6 +66,11 @@ public class TypedValueFactory {
     }
 
     public static MutableTypedValue value(byte value, MutableTypedValue typedValue) {
+        typedValue.set(value);
+        return typedValue;
+    }
+
+    public static MutableTypedValue value(short value, MutableTypedValue typedValue) {
         typedValue.set(value);
         return typedValue;
     }
@@ -98,7 +112,11 @@ public class TypedValueFactory {
 
     public static MutableTypedValue newMutableValue(Type type) {
         MutableTypedValueGenerator generator = new MutableTypedValueGenerator();
-        return generator.process(type);
+        try {
+            return generator.handle(type);
+        } catch (ExpressionException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
     }
 
     public static MutableTypedValue nullValue(MutableTypedValue typedValue) {

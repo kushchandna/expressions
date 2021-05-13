@@ -31,6 +31,11 @@ public abstract class BaseMutableTypedValue extends BaseTypedValue implements Mu
     }
 
     @Override
+    public void set(short value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void set(char value) {
         throw new UnsupportedOperationException();
     }

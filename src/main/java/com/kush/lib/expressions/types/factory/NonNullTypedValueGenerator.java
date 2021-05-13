@@ -4,10 +4,10 @@ import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
 
 import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.TypedValue;
-import com.kush.lib.expressions.types.processors.TypeProcessor;
+import com.kush.lib.expressions.types.processors.TypeHandler;
 
 @ImpactedByAutoBoxing
-class NonNullTypedValueGenerator extends TypeProcessor<TypedValue> {
+class NonNullTypedValueGenerator extends TypeHandler<TypedValue> {
 
     private final Object value;
 
@@ -23,6 +23,11 @@ class NonNullTypedValueGenerator extends TypeProcessor<TypedValue> {
     @Override
     protected TypedValue handleByte() {
         return value((Byte) value);
+    }
+
+    @Override
+    protected TypedValue handleShort() {
+        return value((Short) value);
     }
 
     @Override

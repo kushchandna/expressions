@@ -1,8 +1,8 @@
 package com.kush.lib.expressions.types.factory;
 
-import com.kush.lib.expressions.types.processors.TypeProcessor;
+import com.kush.lib.expressions.types.processors.TypeHandler;
 
-class MutableTypedValueGenerator extends TypeProcessor<MutableTypedValue> {
+class MutableTypedValueGenerator extends TypeHandler<MutableTypedValue> {
 
     @Override
     protected MutableTypedValue handleBoolean() {
@@ -12,6 +12,11 @@ class MutableTypedValueGenerator extends TypeProcessor<MutableTypedValue> {
     @Override
     protected MutableTypedValue handleByte() {
         return new MutableByteValue();
+    }
+
+    @Override
+    protected MutableTypedValue handleShort() {
+        return new MutableShortValue();
     }
 
     @Override
