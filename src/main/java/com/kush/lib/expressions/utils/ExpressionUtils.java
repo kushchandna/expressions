@@ -42,7 +42,8 @@ public class ExpressionUtils {
         return exprEvalFactory.create(expression);
     }
 
-    public static <T> ExpressionEvaluatorFactory<T> getEvaluatorFactory(Class<T> aspectClass, Class<?>... functionClasses) {
+    public static <T> ExpressionEvaluatorFactory<T> getEvaluatorFactory(Class<T> aspectClass, Class<?>... functionClasses)
+            throws ExpressionException {
         return getEvaluatorFactory(Aspects.classBased(aspectClass), functionClasses);
     }
 
