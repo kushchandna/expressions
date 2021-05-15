@@ -1,8 +1,11 @@
 package com.kush.lib.expressions.types.factory;
 
+import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 
+@SuppressWarnings("boxing")
+@ImpactedByAutoBoxing
 class MutableObjectValue extends BaseMutableTypedValue {
 
     private Object value;

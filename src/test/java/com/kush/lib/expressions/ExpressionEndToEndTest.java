@@ -3,6 +3,8 @@ package com.kush.lib.expressions;
 import static com.kush.lib.expressions.types.Type.BOOLEAN;
 import static com.kush.lib.expressions.types.Type.INTEGER;
 import static com.kush.lib.expressions.types.factory.TypedValueFactory.value;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -23,6 +25,7 @@ import com.kush.lib.expressions.parsers.sql.SqlExpressionParser;
 import com.kush.lib.expressions.types.Type;
 import com.kush.lib.expressions.types.TypedValue;
 
+@SuppressWarnings("boxing")
 public class ExpressionEndToEndTest {
 
     @Test
@@ -32,9 +35,9 @@ public class ExpressionEndToEndTest {
                 "field2", INTEGER));
         String sql = "field1 = 1 and field2 = 2";
         runTest(aspect, sql, ImmutableMap.of(
-                getMap(1, 2), true,
-                getMap(3, 2), false,
-                getMap(1, 3), false));
+                getMap(1, 2), TRUE,
+                getMap(3, 2), FALSE,
+                getMap(1, 3), FALSE));
     }
 
     @Test
@@ -42,9 +45,9 @@ public class ExpressionEndToEndTest {
         Aspect<SampleObject> aspect = Aspects.classBased(SampleObject.class);
         String sql = "field1 = 1 and field2 = 2";
         runTest(aspect, sql, ImmutableMap.of(
-                obj(1, 2), true,
-                obj(3, 2), false,
-                obj(1, 3), false));
+                obj(1, 2), TRUE,
+                obj(3, 2), FALSE,
+                obj(1, 3), FALSE));
     }
 
     private <T> void runTest(Aspect<T> aspect, String sql, Map<T, Boolean> objectVsExpectedResult) throws Exception {

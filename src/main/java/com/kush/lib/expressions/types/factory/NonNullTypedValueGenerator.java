@@ -6,6 +6,7 @@ import com.kush.commons.markers.ImpactedByAutoBoxing;
 import com.kush.lib.expressions.types.TypedValue;
 import com.kush.lib.expressions.types.handlers.TypeHandler;
 
+@SuppressWarnings("boxing")
 @ImpactedByAutoBoxing
 class NonNullTypedValueGenerator extends TypeHandler<TypedValue> {
 
