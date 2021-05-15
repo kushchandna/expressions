@@ -8,6 +8,7 @@ import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.CustomFieldExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
@@ -107,5 +108,10 @@ public class DefaultExpressionFactory implements ExpressionFactory {
     @Override
     public DivisionExpression createDivisionExpression(Expression leftExpr, Expression rightExpr) {
         return new DefaultDivisionExpression(leftExpr, rightExpr);
+    }
+
+    @Override
+    public CustomFieldExpression createCustomFieldExpression(Expression formula) {
+        return new DefaultCustomFieldExpression(formula);
     }
 }

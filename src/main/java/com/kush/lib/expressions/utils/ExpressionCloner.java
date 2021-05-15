@@ -12,6 +12,7 @@ import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.CustomFieldExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
@@ -119,6 +120,11 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     @Override
     protected Expression handle(DivisionExpression expression) throws ExpressionException {
         return expressionFactory.createDivisionExpression(process(expression.getLeft()), process(expression.getRight()));
+    }
+
+    @Override
+    protected Expression handle(CustomFieldExpression expression) throws ExpressionException {
+        return expressionFactory.createCustomFieldExpression(process(expression.getFormula()));
     }
 
     private List<Expression> processExpressions(Collection<Expression> inExpressions) throws ExpressionException {

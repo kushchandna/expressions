@@ -11,6 +11,7 @@ import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.CustomFieldExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
@@ -67,6 +68,8 @@ public abstract class ExpressionProcessor<T> {
     protected abstract T handle(MultiplicationExpression expression) throws ExpressionException;
 
     protected abstract T handle(DivisionExpression expression) throws ExpressionException;
+
+    protected abstract T handle(CustomFieldExpression expression) throws ExpressionException;
 
     private void initializeHandlingMethodsIfRequired() {
         if (handlingMethods == null) {

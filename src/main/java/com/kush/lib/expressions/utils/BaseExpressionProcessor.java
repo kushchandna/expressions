@@ -6,6 +6,7 @@ import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
+import com.kush.lib.expressions.clauses.CustomFieldExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
 import com.kush.lib.expressions.clauses.EqualsExpression;
 import com.kush.lib.expressions.clauses.FieldExpression;
@@ -104,6 +105,11 @@ public class BaseExpressionProcessor<T> extends ExpressionProcessor<T> {
 
     @Override
     protected T handle(DivisionExpression expression) throws ExpressionException {
+        return getDefaultValue();
+    }
+
+    @Override
+    protected T handle(CustomFieldExpression expression) throws ExpressionException {
         return getDefaultValue();
     }
 
