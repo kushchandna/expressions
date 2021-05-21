@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
+import com.kush.lib.expressions.clauses.CaseExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
@@ -67,6 +68,8 @@ public abstract class ExpressionProcessor<T> {
     protected abstract T handle(MultiplicationExpression expression) throws ExpressionException;
 
     protected abstract T handle(DivisionExpression expression) throws ExpressionException;
+
+    protected abstract T handle(CaseExpression expression) throws ExpressionException;
 
     private void initializeHandlingMethodsIfRequired() {
         if (handlingMethods == null) {

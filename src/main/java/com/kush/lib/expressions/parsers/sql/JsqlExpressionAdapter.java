@@ -5,13 +5,16 @@ import java.util.List;
 
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionFactory;
+import com.kush.lib.expressions.clauses.CaseExpression.Branch;
 
 import net.sf.jsqlparser.expression.BinaryExpression;
+import net.sf.jsqlparser.expression.CaseExpression;
 import net.sf.jsqlparser.expression.ExpressionVisitorAdapter;
 import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.NotExpression;
 import net.sf.jsqlparser.expression.StringValue;
+import net.sf.jsqlparser.expression.WhenClause;
 import net.sf.jsqlparser.expression.operators.arithmetic.Addition;
 import net.sf.jsqlparser.expression.operators.arithmetic.Division;
 import net.sf.jsqlparser.expression.operators.arithmetic.Multiplication;
@@ -36,6 +39,9 @@ class JsqlExpressionAdapter extends ExpressionVisitorAdapter {
     }
 
     public static Expression adapt(net.sf.jsqlparser.expression.Expression expr, ExpressionFactory exprFactory) {
+        if (expr == null) {
+            return null;
+        }
         JsqlExpressionAdapter adapter = new JsqlExpressionAdapter(exprFactory);
         expr.accept(adapter);
         return adapter.get().get(0);
@@ -131,6 +137,31 @@ class JsqlExpressionAdapter extends ExpressionVisitorAdapter {
     @Override
     public void visit(Division expr) {
         add(expressionFactory.createDivisionExpression(adapt(expr.getLeftExpression()), adapt(expr.getRightExpression())));
+    }
+
+    @Override
+    public void visit(CaseExpression expr) {
+        add(expressionFactory.createCaseExpression(adapt(expr.getSwitchExpression()), getBranches(expr),
+                adapt(expr.getElseExpression())));
+    }
+
+    private List<Branch> getBranches(CaseExpression expr) {
+        List<Branch> branches = new ArrayList<>();
+        for (WhenClause whenClause : expr.getWhenClauses()) {
+            branches.add(new Branch() {
+
+                @Override
+                public Expression getResult() {
+                    return adapt(whenClause.getThenExpression());
+                }
+
+                @Override
+                public Expression getEntry() {
+                    return adapt(whenClause.getWhenExpression());
+                }
+            });
+        }
+        return branches;
     }
 
     private void processBinaryExpression(net.sf.jsqlparser.expression.Expression expr,

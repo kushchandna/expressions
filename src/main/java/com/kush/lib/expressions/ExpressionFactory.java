@@ -1,9 +1,12 @@
 package com.kush.lib.expressions;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
+import com.kush.lib.expressions.clauses.CaseExpression;
+import com.kush.lib.expressions.clauses.CaseExpression.Branch;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
@@ -55,4 +58,6 @@ public interface ExpressionFactory {
     MultiplicationExpression createMultiplicationExpression(Expression leftExpr, Expression rightExpr);
 
     DivisionExpression createDivisionExpression(Expression leftExpr, Expression rightExpr);
+
+    CaseExpression createCaseExpression(Expression reference, List<Branch> branches, Expression defaultReturn);
 }

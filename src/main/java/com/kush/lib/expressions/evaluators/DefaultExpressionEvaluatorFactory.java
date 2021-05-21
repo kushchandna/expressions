@@ -7,6 +7,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.ExpressionProcessor;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
+import com.kush.lib.expressions.clauses.CaseExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
@@ -132,6 +133,11 @@ public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluator
         @Override
         protected ExpressionEvaluator<T> handle(DivisionExpression expression) throws ExpressionException {
             return new DivisionExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
+        }
+
+        @Override
+        protected ExpressionEvaluator<T> handle(CaseExpression expression) throws ExpressionException {
+            return new CaseExpressionEvaluator<>(expression, DefaultExpressionEvaluatorFactory.this);
         }
     }
 }

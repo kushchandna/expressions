@@ -10,6 +10,7 @@ import com.kush.lib.expressions.ExpressionFactory;
 import com.kush.lib.expressions.ExpressionProcessor;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
+import com.kush.lib.expressions.clauses.CaseExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
@@ -119,6 +120,37 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     @Override
     protected Expression handle(DivisionExpression expression) throws ExpressionException {
         return expressionFactory.createDivisionExpression(process(expression.getLeft()), process(expression.getRight()));
+    }
+
+    @Override
+    protected Expression handle(CaseExpression expression) throws ExpressionException {
+        return expressionFactory.createCaseExpression(process(expression.getReference()), processBranches(expression),
+                process(expression.getDefaultBranch()));
+    }
+
+    private List<CaseExpression.Branch> processBranches(CaseExpression expression) throws ExpressionException {
+        List<CaseExpression.Branch> processedBranches = new ArrayList<>();
+        for (CaseExpression.Branch branch : expression.getBranches()) {
+            processedBranches.add(processBranches(branch));
+        }
+        return processedBranches;
+    }
+
+    private CaseExpression.Branch processBranches(CaseExpression.Branch branch) throws ExpressionException {
+        Expression processedEntry = process(branch.getEntry());
+        Expression processedReturn = process(branch.getResult());
+        return new CaseExpression.Branch() {
+
+            @Override
+            public Expression getResult() {
+                return processedReturn;
+            }
+
+            @Override
+            public Expression getEntry() {
+                return processedEntry;
+            }
+        };
     }
 
     private List<Expression> processExpressions(Collection<Expression> inExpressions) throws ExpressionException {

@@ -1,0 +1,2 @@
+- remove getChildren method from expressions as it is not being used anywhere
+- add infrastructure to reuse typed values in evaluators out of the box, instead of handling them everywhere

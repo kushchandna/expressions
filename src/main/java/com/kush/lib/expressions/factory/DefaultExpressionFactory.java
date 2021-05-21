@@ -1,11 +1,14 @@
 package com.kush.lib.expressions.factory;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionFactory;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
+import com.kush.lib.expressions.clauses.CaseExpression;
+import com.kush.lib.expressions.clauses.CaseExpression.Branch;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
@@ -107,5 +110,10 @@ public class DefaultExpressionFactory implements ExpressionFactory {
     @Override
     public DivisionExpression createDivisionExpression(Expression leftExpr, Expression rightExpr) {
         return new DefaultDivisionExpression(leftExpr, rightExpr);
+    }
+
+    @Override
+    public CaseExpression createCaseExpression(Expression reference, List<Branch> branches, Expression defaultReturn) {
+        return new DefaultCaseExpression(reference, branches, defaultReturn);
     }
 }

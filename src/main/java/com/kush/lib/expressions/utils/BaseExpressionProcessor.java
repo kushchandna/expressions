@@ -4,6 +4,7 @@ import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.ExpressionProcessor;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
+import com.kush.lib.expressions.clauses.CaseExpression;
 import com.kush.lib.expressions.clauses.ConstantIntExpression;
 import com.kush.lib.expressions.clauses.ConstantStringExpression;
 import com.kush.lib.expressions.clauses.DivisionExpression;
@@ -104,6 +105,11 @@ public class BaseExpressionProcessor<T> extends ExpressionProcessor<T> {
 
     @Override
     protected T handle(DivisionExpression expression) throws ExpressionException {
+        return getDefaultValue();
+    }
+
+    @Override
+    protected T handle(CaseExpression expression) throws ExpressionException {
         return getDefaultValue();
     }
 
