@@ -28,11 +28,6 @@ class DefaultFunctionExpression extends BaseExpression implements FunctionExpres
     }
 
     @Override
-    public Collection<Expression> getChildren() {
-        return getArguments();
-    }
-
-    @Override
     public String toString() {
         return new StringBuilder()
             .append(getFunctionName())

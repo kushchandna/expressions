@@ -1,9 +1,5 @@
 package com.kush.lib.expressions.factory;
 
-import static java.util.Arrays.asList;
-
-import java.util.Collection;
-
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.commons.BinomialExpression;
 
@@ -25,11 +21,6 @@ abstract class BaseBinomialExpression extends BaseExpression implements Binomial
     @Override
     public Expression getRight() {
         return right;
-    }
-
-    @Override
-    public Collection<Expression> getChildren() {
-        return asList(left, right);
     }
 
     @Override

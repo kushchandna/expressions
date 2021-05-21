@@ -1,6 +1,5 @@
 package com.kush.lib.expressions.factory;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.kush.lib.expressions.Expression;
@@ -16,11 +15,6 @@ class DefaultCaseExpression implements CaseExpression {
         this.reference = reference;
         this.branches = branches;
         this.defaultReturn = defaultReturn;
-    }
-
-    @Override
-    public Collection<Expression> getChildren() {
-        return null;
     }
 
     @Override

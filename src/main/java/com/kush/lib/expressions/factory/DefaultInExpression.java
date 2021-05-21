@@ -2,9 +2,7 @@ package com.kush.lib.expressions.factory;
 
 import static java.util.stream.Collectors.joining;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.clauses.InExpression;
@@ -17,14 +15,6 @@ class DefaultInExpression extends BaseExpression implements InExpression {
     public DefaultInExpression(Expression targetExpr, Collection<Expression> inExprs) {
         this.targetExpr = targetExpr;
         this.inExprs = inExprs;
-    }
-
-    @Override
-    public Collection<Expression> getChildren() {
-        List<Expression> children = new ArrayList<>(inExprs.size() + 1);
-        children.add(targetExpr);
-        children.addAll(inExprs);
-        return children;
     }
 
     @Override
