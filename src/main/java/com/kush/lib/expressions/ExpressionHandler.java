@@ -26,11 +26,11 @@ import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
 import com.kush.lib.expressions.clauses.SubtractionExpression;
 
-public abstract class ExpressionProcessor<T> {
+public abstract class ExpressionHandler<T> {
 
     private static Map<Class<?>, Method> handlingMethods;
 
-    public final T process(Expression expression) throws ExpressionException {
+    public final T accept(Expression expression) throws ExpressionException {
         initializeHandlingMethodsIfRequired();
         return invokeSpecificProcessMethod(expression);
     }
@@ -73,7 +73,7 @@ public abstract class ExpressionProcessor<T> {
 
     private void initializeHandlingMethodsIfRequired() {
         if (handlingMethods == null) {
-            handlingMethods = loadHandlingMethods(ExpressionProcessor.class);
+            handlingMethods = loadHandlingMethods(ExpressionHandler.class);
         }
     }
 

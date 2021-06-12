@@ -1,7 +1,7 @@
 package com.kush.lib.expressions.utils;
 
 import com.kush.lib.expressions.ExpressionException;
-import com.kush.lib.expressions.ExpressionProcessor;
+import com.kush.lib.expressions.ExpressionHandler;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.CaseExpression;
@@ -21,7 +21,7 @@ import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
 import com.kush.lib.expressions.clauses.SubtractionExpression;
 
-public class BaseExpressionProcessor<T> extends ExpressionProcessor<T> {
+public class BaseExpressionHandler<T> extends ExpressionHandler<T> {
 
     @Override
     protected T handle(FieldExpression expression) throws ExpressionException {

@@ -14,13 +14,13 @@ import java.util.stream.Stream;
 import org.junit.Test;
 import org.reflections.Reflections;
 
-public class ExpressionProcessorTest {
+public class ExpressionHandlerTest {
 
     private static final String EXPR_PACKAGE = "com.kush.lib.expressions.clauses";
 
     @Test
     public void ensureProcessorHasAllHandleMethods() throws Exception {
-        Set<Class<?>> existingHandleMethodParams = getAllExistingHandleMethodParams(ExpressionProcessor.class);
+        Set<Class<?>> existingHandleMethodParams = getAllExistingHandleMethodParams(ExpressionHandler.class);
         List<String> missingHandleMethods = allExpressionSubclasses()
             .filter(exprClass -> !existingHandleMethodParams.contains(exprClass))
             .map(exprClass -> exprClass.getName())
@@ -45,7 +45,7 @@ public class ExpressionProcessorTest {
     private Set<Class<?>> getAllExistingHandleMethodParams(Class<?> expressionProcessorClass) {
         Method[] allMethods = expressionProcessorClass.getDeclaredMethods();
         return stream(allMethods)
-            .filter(ExpressionProcessorTest::isAbstractHandleMethod)
+            .filter(ExpressionHandlerTest::isAbstractHandleMethod)
             .map(method -> method.getParameterTypes()[0])
             .collect(Collectors.toSet());
     }

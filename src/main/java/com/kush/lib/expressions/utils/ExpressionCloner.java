@@ -7,7 +7,7 @@ import java.util.List;
 import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionException;
 import com.kush.lib.expressions.ExpressionFactory;
-import com.kush.lib.expressions.ExpressionProcessor;
+import com.kush.lib.expressions.ExpressionHandler;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.CaseExpression;
@@ -27,7 +27,7 @@ import com.kush.lib.expressions.clauses.NotExpression;
 import com.kush.lib.expressions.clauses.OrExpression;
 import com.kush.lib.expressions.clauses.SubtractionExpression;
 
-public class ExpressionCloner extends ExpressionProcessor<Expression> {
+public class ExpressionCloner extends ExpressionHandler<Expression> {
 
     private final ExpressionFactory expressionFactory;
 
@@ -42,48 +42,48 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
 
     @Override
     protected Expression handle(AndExpression expression) throws ExpressionException {
-        return expressionFactory.createAndExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createAndExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(OrExpression expression) throws ExpressionException {
-        return expressionFactory.createOrExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createOrExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(NotExpression expression) throws ExpressionException {
-        return expressionFactory.createNotExpression(process(expression.getChild()));
+        return expressionFactory.createNotExpression(accept(expression.getChild()));
     }
 
     @Override
     protected Expression handle(EqualsExpression expression) throws ExpressionException {
-        return expressionFactory.createEqualsExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createEqualsExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(InExpression expression) throws ExpressionException {
-        return expressionFactory.createInExpression(process(expression.getTarget()),
+        return expressionFactory.createInExpression(accept(expression.getTarget()),
                 processExpressions(expression.getInExpressions()));
     }
 
     @Override
     protected Expression handle(GreaterThanExpression expression) throws ExpressionException {
-        return expressionFactory.createGreaterThanExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createGreaterThanExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(GreaterThanEqualsExpression expression) throws ExpressionException {
-        return expressionFactory.createGreaterThanEqualsExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createGreaterThanEqualsExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(LessThanExpression expression) throws ExpressionException {
-        return expressionFactory.createLessThanExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createLessThanExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(LessThanEqualsExpression expression) throws ExpressionException {
-        return expressionFactory.createLessThanEqualsExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createLessThanEqualsExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
@@ -104,28 +104,28 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
 
     @Override
     protected Expression handle(AdditionExpression expression) throws ExpressionException {
-        return expressionFactory.createAdditionExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createAdditionExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(SubtractionExpression expression) throws ExpressionException {
-        return expressionFactory.createSubtractionExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createSubtractionExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(MultiplicationExpression expression) throws ExpressionException {
-        return expressionFactory.createMultiplicationExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createMultiplicationExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(DivisionExpression expression) throws ExpressionException {
-        return expressionFactory.createDivisionExpression(process(expression.getLeft()), process(expression.getRight()));
+        return expressionFactory.createDivisionExpression(accept(expression.getLeft()), accept(expression.getRight()));
     }
 
     @Override
     protected Expression handle(CaseExpression expression) throws ExpressionException {
-        return expressionFactory.createCaseExpression(process(expression.getReference()), processBranches(expression),
-                process(expression.getDefaultBranch()));
+        return expressionFactory.createCaseExpression(accept(expression.getReference()), processBranches(expression),
+                accept(expression.getDefaultBranch()));
     }
 
     private List<CaseExpression.Branch> processBranches(CaseExpression expression) throws ExpressionException {
@@ -137,8 +137,8 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     }
 
     private CaseExpression.Branch processBranches(CaseExpression.Branch branch) throws ExpressionException {
-        Expression processedEntry = process(branch.getEntry());
-        Expression processedReturn = process(branch.getResult());
+        Expression processedEntry = accept(branch.getEntry());
+        Expression processedReturn = accept(branch.getResult());
         return new CaseExpression.Branch() {
 
             @Override
@@ -156,7 +156,7 @@ public class ExpressionCloner extends ExpressionProcessor<Expression> {
     private List<Expression> processExpressions(Collection<Expression> inExpressions) throws ExpressionException {
         List<Expression> processedExprList = new ArrayList<>(inExpressions.size());
         for (Expression expr : inExpressions) {
-            processedExprList.add(process(expr));
+            processedExprList.add(accept(expr));
         }
         return processedExprList;
     }

@@ -4,7 +4,7 @@ import com.kush.lib.expressions.Expression;
 import com.kush.lib.expressions.ExpressionEvaluator;
 import com.kush.lib.expressions.ExpressionEvaluatorFactory;
 import com.kush.lib.expressions.ExpressionException;
-import com.kush.lib.expressions.ExpressionProcessor;
+import com.kush.lib.expressions.ExpressionHandler;
 import com.kush.lib.expressions.clauses.AdditionExpression;
 import com.kush.lib.expressions.clauses.AndExpression;
 import com.kush.lib.expressions.clauses.CaseExpression;
@@ -36,10 +36,10 @@ public class DefaultExpressionEvaluatorFactory<T> implements ExpressionEvaluator
 
     @Override
     public ExpressionEvaluator<T> create(Expression expression) throws ExpressionException {
-        return internalFactory.process(expression);
+        return internalFactory.accept(expression);
     }
 
-    private class InternalExpressionEvaluatorFactory extends ExpressionProcessor<ExpressionEvaluator<T>> {
+    private class InternalExpressionEvaluatorFactory extends ExpressionHandler<ExpressionEvaluator<T>> {
 
         private final FieldExpressionEvaluatorFactory<T> fieldEvaluatorFactory;
         private final FunctonsRepository functonsRepository;
